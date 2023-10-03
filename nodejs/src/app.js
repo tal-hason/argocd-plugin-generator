@@ -5,6 +5,8 @@ const util = require('util');
 const fs = require('fs');
 
 const app = express();
+
+// Use body-parser middleware to parse JSON request bodies
 app.use(bodyParser.json());
 
 // Read the token from the file at /var/run/argo/token

@@ -20,8 +20,8 @@ BUILD_TAG=$(git rev-parse --short HEAD)
 podman build . -t quay.io/thason/argocd-appset-plugin:$BUILD_TAG
 
 if [ "$action" == "test" ]; then
-  # Run the container for testing
-  podman run -it -p 8080:8080 quay.io/thason/argocd-appset-plugin:$BUILD_TAG &
+  # Run the container for testing with a name 'argocd-plugin'
+  podman run -it -p 8080:8080 --name=argocd-plugin quay.io/thason/argocd-appset-plugin:$BUILD_TAG &
   echo "Container for testing started."
 
   # Print the container log
@@ -39,6 +39,19 @@ elif [ "$action" == "push" ]; then
   # Push the container image to the repository
   podman push quay.io/thason/argocd-appset-plugin:$BUILD_TAG
   echo "Container image pushed to repository."
+
+  # Ask the user if they want to update the Helm values file
+  read -p "Do you want to update the Helm values file (values.yaml)? (y/n): " update_values
+  if [ "$update_values" == "y" ]; then
+    # Use yq to update the tag in the Helm values file
+    yq e -i ".image.tag = \"$BUILD_TAG\"" ../GitOps/Application/values.yaml
+
+    # Commit and push the updated Helm values file
+    git add GitOps/Application/values.yaml
+    git commit -m "Update container image tag in Helm values file to $BUILD_TAG"
+    git push
+    echo "Helm values file updated and pushed to the Git repository."
+  fi
 
 else
   echo "Invalid action. Use 'test' or 'push'."
