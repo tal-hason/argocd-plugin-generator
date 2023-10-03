@@ -18,6 +18,10 @@ function loadConfigurations() {
       const configYAML = fs.readFileSync(filePath, 'utf-8');
       const config = yaml.load(configYAML); // Use yaml.load instead of yaml.safeLoad
       configurations.push(config);
+
+      // Print the content of the loaded YAML file
+      console.log(`Loaded configuration from ${file}:`);
+      console.log(config);
     }
   });
 
@@ -38,23 +42,34 @@ const server = http.createServer((req, res) => {
 
   if (req.url === '/api/v1/getparams.execute' && req.method === 'POST') {
     console.log('Received POST request for /api/v1/getparams.execute');
-    // Use the first configuration loaded from the 'config' folder
-    if (configurations.length > 0) {
-      const apiPayload = configurations[0].apiPayload;
+    // Read and print the POST request body
+    let requestBody = '';
+    req.on('data', (chunk) => {
+      requestBody += chunk.toString();
+    });
 
-      const response = {
-        output: {
-          parameters: apiPayload,
-        },
-      };
+    req.on('end', () => {
+      console.log('POST request body:');
+      console.log(requestBody);
 
-      console.log('Sending response for /api/v1/getparams.execute');
-      reply(res, response);
-    } else {
-      // Handle the case when no configurations are loaded
-      console.log('No configurations found');
-      reply(res, { error: 'No configurations found' });
-    }
+      // Use the first configuration loaded from the 'config' folder
+      if (configurations.length > 0) {
+        const apiPayload = configurations[0].apiPayload;
+
+        const response = {
+          output: {
+            parameters: apiPayload,
+          },
+        };
+
+        console.log('Sending response for /api/v1/getparams.execute');
+        reply(res, response);
+      } else {
+        // Handle the case when no configurations are loaded
+        console.log('No configurations found');
+        reply(res, { error: 'No configurations found' });
+      }
+    });
   } else if (req.url === '/health/liveliness') {
     console.log('Received GET request for /health/liveliness');
     // Implement the liveliness probe logic here
