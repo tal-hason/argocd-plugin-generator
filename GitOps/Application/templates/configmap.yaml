@@ -5,4 +5,4 @@ metadata:
   labels:
     {{- include "app.labels" . | nindent 4 }}
 data:
-  {{ (.Files.Glob "ApplcaitionFiles/*").AsConfig | indent 4 }}
+{{ (.Files.Glob "ApplcaitionFiles/*").AsConfig | nindent 2 }}
