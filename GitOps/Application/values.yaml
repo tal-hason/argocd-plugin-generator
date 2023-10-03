@@ -1,0 +1,115 @@
+image:
+  ## Name of the image you want to build/deploy
+  ## Defaults to the release name
+  name: quay.io/thason/argocd-appset-plugin
+  ## Tag that you want to build/deploy
+  tag: "8fbd529"
+## Application/Deployment-specific values (For configuring Deployment, Service, Route, ConfigMap, etc)
+deploy:
+  ## Number of pod replicas to deploy
+  replicas: 1
+  ## Freeform resources. More information: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+  resources:
+  #  limits:
+  #    cpu: 100m
+  #    memory: 256Mi
+  #  requests:
+  #    cpu: 50m
+  #    memory: 128Mi
+
+  ## Type of service to create. More information: https://kubernetes.io/docs/concepts/services-networking/service/#publishing-services-service-types
+  serviceType: ClusterIP
+  ## Freeform service ports. More information: https://kubernetes.io/docs/concepts/services-networking/service/#defining-a-service
+  ports:
+    - name: http
+      port: 8080
+      targetPort: 8080
+      protocol: TCP
+  ## For creating a Route, allowing your application to be accessed from outside the OCP cluster
+  route:
+    enabled: false
+    targetPort: http
+    ## More information: https://docs.openshift.com/container-platform/4.6/networking/routes/secured-routes.html
+    tls:
+      enabled: false
+      termination: edge
+      insecureEdgeTerminationPolicy: Redirect
+      ## IMPORTANT: Do not check 'key' into git!
+      key:
+      caCertificate:
+      certificate:
+      destinationCACertificate:
+  ingress:
+    enabled: true
+    Domain: apps-crc.testing
+    ## More information: https://docs.openshift.com/container-platform/4.6/networking/routes/secured-routes.html
+    tls:
+      enabled: true
+      termination: edge
+      ## IMPORTANT: Do not check 'key' into git!
+  ## Freeform Liveness Probe. More information: https://docs.openshift.com/container-platform/4.6/applications/application-health.html#application-health-about_application-health
+  livenessProbe:
+    httpGet:
+      path: /health/liveliness
+      port: http
+  ## If you don't want a livenessProbe, override like this in your values file
+  # livenessProbe: ''
+
+  ## Freeform Readiness Probe. More information: https://docs.openshift.com/container-platform/4.6/applications/application-health.html#application-health-about_application-health
+  readinessProbe:
+    httpGet:
+      path: /health/readiness
+      port: http
+  ## If you don't want a readinessProbe, override like this in your values file
+  # readinessProve: ''
+
+  ## Freeform env. More information: https://kubernetes.io/docs/tasks/inject-data-application/define-environment-variable-container/
+  env:
+    - name: PORT
+      value: 8080
+  ## Freeform envFrom. More information: https://kubernetes.io/docs/tasks/configure-pod-container/configure-pod-configmap/#configure-all-key-value-pairs-in-a-configmap-as-container-environment-variables
+  envFrom:
+  #  - configMapRef:
+  #      name: special-config
+
+  ## Application properties file for configuring the app
+  applicationProperties:
+    ## Determines if application properties should be created in a configmap and mounted to the application container
+    enabled: true
+    ## Location to mount the properties file
+    mountPath: /tmp/config/
+    ## Application properties file contents
+    fileName: app.yaml
+    properties: |-
+      GenerateApplication:
+        - hello: world
+        - hello: again
+  ## Freeform volume mounts. More information: https://kubernetes.io/docs/concepts/storage/volumes/
+  volumeMounts:
+   - name: token
+     mountPath: /var/run/argo/token
+
+  ## Freeform volumes. More information: https://kubernetes.io/docs/concepts/storage/volumes/
+  volumes:
+   - name: token
+     Secret:
+       name: argocd-app-set-plugin-token
+       key: token
+
+  ## Freeform init containers: More information: https://kubernetes.io/docs/concepts/workloads/pods/init-containers/
+  initContainers:
+  #  - name: my-init-container
+  #    command: ["echo", "hello"]
+  #    image: registry.redhat.io/ubi8/ubi-minimal
+
+  ## Freeform containers: More information: https://kubernetes.io/docs/concepts/workloads/pods/#pod-templates
+  extraContainers:
+  #  - name: my-extra-container
+  #    command: ["sleep", "infinity"]
+  #    image: registry.redhat.io/ubi8/ubi-minimal
+global:
+  ## Override the release name
+  nameOverride: argo-plugin
+  serviceName: plugin
+  runTime: nodejs
+  namespace: openshift-gitops

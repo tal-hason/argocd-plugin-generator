@@ -1,0 +1,31 @@
+{{- if .Values.deploy.ingress.enabled }}
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: '{{ include "app.name" . }}-{{ .Values.global.serviceName }}'
+  labels:
+    {{- include "app.labels" . | nindent 4 }}
+  annotations:
+  {{- if .Values.deploy.ingress.tls.enabled }}
+    route.openshift.io/termination: {{ .Values.deploy.ingress.tls.termination }} 
+    route.openshift.io/destination-ca-certificate-secret: {{ .Values.global.serviceName }}-ca-cert
+  {{- end }}
+spec:
+  rules:
+  - host: {{ include "host.name" . }}
+    http:
+      paths:
+      - backend:
+          service:
+            name: '{{ include "app.name" . }}-{{ .Values.global.serviceName }}'
+            port:
+            {{- range .Values.deploy.ports }}
+              number: {{ .port }}
+            {{- end }}
+        path: /
+        pathType: Prefix
+{{- if .Values.deploy.ingress.tls.enabled }}
+  tls:
+  - {}
+{{- end }}
+{{- end }}

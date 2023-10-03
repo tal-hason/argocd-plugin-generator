@@ -1,0 +1,11 @@
+{{- if .Values.deploy.applicationProperties.enabled }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: '{{ include "app.name" . }}-{{ .Values.global.serviceName }}'
+  labels:
+    {{- include "app.labels" . | nindent 4 }}
+data:
+  '{{ .Values.deploy.applicationProperties.fileName }}': |-
+    {{- tpl .Values.deploy.applicationProperties.properties . | nindent 4 }}
+{{- end }}
