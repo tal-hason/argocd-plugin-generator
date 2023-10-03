@@ -2,6 +2,7 @@ const http = require('http');
 const fs = require('fs');
 const path = require('path');
 const yaml = require('js-yaml');
+const util = require('util'); // Import the util module
 
 const token = fs.readFileSync('/var/run/argo/token', 'utf-8').trim();
 
@@ -19,9 +20,9 @@ function loadConfigurations() {
       const config = yaml.load(configYAML); // Use yaml.load instead of yaml.safeLoad
       configurations.push(config);
 
-      // Print the content of the loaded YAML file
+      // Print the content of the loaded YAML file with better formatting
       console.log(`Loaded configuration from ${file}:`);
-      console.log(config);
+      console.log(util.inspect(config, { depth: null }));
     }
   });
 
