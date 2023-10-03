@@ -1,7 +1,6 @@
 # .NET Helm Chart
 A Helm chart for building and deploying a [.NET](https://dot.net/) application on OpenShift.
 
-
 ## Prerequisites
 Below are prerequisites that may apply to your use case.
 
