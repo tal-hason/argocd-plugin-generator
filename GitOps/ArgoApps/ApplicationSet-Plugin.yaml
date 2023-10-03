@@ -1,0 +1,30 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: plugin-applicationset
+  namespace: openshift-gitops
+spec:
+  generators:
+    - plugin:
+        configMapRef:
+          name: plugin-config
+  template:
+    metadata:
+      name: "from-appset-{{hello}}"
+    spec:
+      project: argocd-plugin
+      source:
+        helm:
+          valueFiles:
+            - gotham-demo/develop/values-batman.yaml
+        repoURL: https://github.com/gotham-demo/gotham-cd.git
+        path: Application
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: plugin-test
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+        syncOptions:
+          - CreateNamespace=true
