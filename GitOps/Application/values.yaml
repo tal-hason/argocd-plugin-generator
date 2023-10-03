@@ -72,22 +72,12 @@ deploy:
   #  - configMapRef:
   #      name: special-config
 
-  ## Application properties file for configuring the app
-  applicationProperties:
-    ## Determines if application properties should be created in a configmap and mounted to the application container
-    enabled: true
-    ## Location to mount the properties file
-    mountPath: /tmp/config/
-    ## Application properties file contents
-    fileName: app.yaml
-    properties: |-
-      GenerateApplication:
-        - hello: world
-        - hello: again
   ## Freeform volume mounts. More information: https://kubernetes.io/docs/concepts/storage/volumes/
   volumeMounts:
    - name: token
      mountPath: /var/run/argo/token
+   - name: applications
+     mountPath: /tmp/config/
 
   ## Freeform volumes. More information: https://kubernetes.io/docs/concepts/storage/volumes/
   volumes:
@@ -95,6 +85,9 @@ deploy:
      Secret:
        name: argocd-app-set-plugin-token
        key: token
+   - name: applications
+     configMap:
+       name: applicationset-file   
 
   ## Freeform init containers: More information: https://kubernetes.io/docs/concepts/workloads/pods/init-containers/
   initContainers:
