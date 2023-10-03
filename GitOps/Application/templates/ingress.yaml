@@ -22,7 +22,7 @@ spec:
             {{- range .Values.deploy.ports }}
               number: {{ .port }}
             {{- end }}
-        path: /
+        path: /api-docs
         pathType: Prefix
 {{- if .Values.deploy.ingress.tls.enabled }}
   tls:
