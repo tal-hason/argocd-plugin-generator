@@ -4,7 +4,7 @@ const path = require('path');
 const yaml = require('js-yaml');
 const util = require('util'); // Import the util module
 
-const token = fs.readFileSync('/var/run/argo/token', 'utf-8').trim();
+// Remove the token variable as it's not needed for probes
 
 // Define a function to load configurations from the 'config' folder
 function loadConfigurations() {
@@ -35,7 +35,16 @@ const configurations = loadConfigurations();
 const PORT = process.env.PORT || 8080;
 
 const server = http.createServer((req, res) => {
-  if (req.headers.authorization !== `Bearer ${token}`) {
+  // Remove the token authorization check here for health probes
+  if (req.url === '/health/liveliness') {
+    console.log('Received GET request for /health/liveliness');
+    // Implement the liveliness probe logic here
+    livelinessProbe(res);
+  } else if (req.url === '/health/readiness') {
+    console.log('Received GET request for /health/readiness');
+    // Implement the readiness probe logic here
+    readinessProbe(res);
+  } else if (req.headers.authorization !== `Bearer ${token}`) {
     console.log('Unauthorized request');
     forbidden(res);
     return;
@@ -71,14 +80,6 @@ const server = http.createServer((req, res) => {
         reply(res, { error: 'No configurations found' });
       }
     });
-  } if (req.url === '/health/liveliness') {
-    console.log('Received GET request for /health/liveliness');
-    // Implement the liveliness probe logic here
-    livelinessProbe(res);
-  } if (req.url === '/health/readiness') {
-    console.log('Received GET request for /health/readiness');
-    // Implement the readiness probe logic here
-    readinessProbe(res);
   } else {
     console.log('Received request for an unsupported path:', req.url);
     unsupported(res);
