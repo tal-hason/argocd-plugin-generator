@@ -133,5 +133,5 @@ app.use((req, res) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+  console.log(`Server running on port ${PORT}, to access the swagger-UI https://<<Some Route address>>/api-docs`);
 });
