@@ -18,11 +18,9 @@ const options = {
       },
     },
   },
-  // API paths to be documented
-  apis: ['./*.js'], // Replace with the path to your route files
+  apis: ['./app.js'],
 };
 
-// Initialize swagger-jsdoc
-const swaggerSpec = swaggerJsdoc(options);
+const swaggerSpec = swaggerJSDoc(options);
 
 module.exports = swaggerSpec;
