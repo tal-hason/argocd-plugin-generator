@@ -110,7 +110,7 @@ function livelinessProbe(res) {
   // Implement the liveliness probe logic here
   // For example, you can check if a critical component is running
   console.log('Liveliness probe successful');
-  res.status(200);
+  res.writeHead(200);
   res.end('Liveliness: OK');
 }
 
@@ -118,7 +118,7 @@ function readinessProbe(res) {
   // Implement the readiness probe logic here
   // For example, you can check if your application is ready to serve requests
   console.log('Readiness probe successful');
-  res.status(200);
+  res.writeHead(200);
   res.end('Readiness: OK');
 }
 
