@@ -10,7 +10,7 @@ spec:
           name: plugin-config
   template:
     metadata:
-      name: "from-appset-{{hello}}"
+      name: "{{name}}-{{project}}"
     spec:
       project: argocd-plugin
       source:
@@ -22,6 +22,8 @@ spec:
               value: '{{image}}'
             - name: "image.tag"
               value: '{{tag}}'
+            - name: "global.namespace"
+              value: 'plugin-test'
         repoURL: https://github.com/{{project}}/gotham-cd.git
         path: Application
       destination:

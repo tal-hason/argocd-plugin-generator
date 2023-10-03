@@ -7,3 +7,7 @@ GenerateApplication:
     project: gotham-demo
     image: quay.io/gotham/joker
     tag: 8280f51
+  - name: robbin
+    project: gotham-demo
+    image: quay.io/gotham/robbin
+    tag: a678098
