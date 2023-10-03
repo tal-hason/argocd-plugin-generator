@@ -51,7 +51,6 @@ const configurations = loadConfigurations();
 // Get the port from the PORT environment variable or default to 8080
 const PORT = process.env.PORT || 8080;
 
-Copy code
 /**
  * @swagger
  * /api/v1/getparams.execute:
