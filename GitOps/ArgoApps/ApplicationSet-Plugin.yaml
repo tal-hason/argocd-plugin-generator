@@ -16,8 +16,13 @@ spec:
       source:
         helm:
           valueFiles:
-            - gotham-demo/develop/values-batman.yaml
-        repoURL: https://github.com/gotham-demo/gotham-cd.git
+            - gotham-demo/develop/values-{{name}}.yaml
+          parameters:
+            - name: "image.name"
+              value: '{{image}}'
+            - name: "image.tag"
+              value: '{{tag}}'
+        repoURL: https://github.com/{{project}}/gotham-cd.git
         path: Application
       destination:
         server: https://kubernetes.default.svc

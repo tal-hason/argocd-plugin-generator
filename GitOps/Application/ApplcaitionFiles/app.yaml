@@ -1,3 +1,9 @@
 GenerateApplication:
-  - hello: world
-  - hello: again
+  - name: batman
+    project: gotham-demo
+    image: quay.io/gotham/batman
+    tag: 4a7050d
+  - name: joker
+    project: gotham-demo
+    image: quay.io/gotham/joker
+    tag: 8280f51
