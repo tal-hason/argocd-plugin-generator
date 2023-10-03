@@ -11,8 +11,13 @@ action="$2"
 
 # Check if IMAGE_NAME environment variable exists
 if [ -z "$IMAGE_NAME" ]; then
-  read -p "Enter the image repository (e.g., quay.io/thason/argocd-appset-plugin): " IMAGE_NAME
-  export IMAGE_NAME
+  # Check if IMAGE_NAME is saved in a configuration file
+  if [ -f ~/.automation_config ]; then
+    source ~/.automation_config
+  else
+    read -p "Enter the image repository (e.g., quay.io/thason/argocd-appset-plugin): " IMAGE_NAME
+    echo "export IMAGE_NAME=\"$IMAGE_NAME\"" > ~/.automation_config
+  fi
 fi
 
 # Commit the changes with the provided commit message

@@ -1,13 +1,21 @@
-const swaggerJsdoc = require('swagger-jsdoc');
+const swaggerJSDoc = require('swagger-jsdoc');
 
-// Swagger options
 const options = {
   definition: {
-    openapi: '3.0.0', // OpenAPI version
+    openapi: '3.0.0',
     info: {
-      title: 'Your API Documentation', // Title of your API
-      version: '1.0.0', // Version of your API
-      description: 'API documentation for your Node.js application',
+      title: 'Your API Documentation',
+      version: '1.0.0',
+      description: 'API documentation for your application',
+    },
+    components: {
+      securitySchemes: {
+        BearerAuth: {
+          type: 'http',
+          scheme: 'bearer',
+          bearerFormat: 'JWT', // Specify the format of your token (e.g., JWT)
+        },
+      },
     },
   },
   // API paths to be documented

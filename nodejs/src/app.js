@@ -60,13 +60,7 @@ const PORT = process.env.PORT || 8080;
  *     security:
  *       - BearerAuth: [] 
  *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             properties:
- *               // Define your request body properties here
+ *       required: false
  *     responses:
  *       '200':
  *         description: Successful response
