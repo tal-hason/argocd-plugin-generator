@@ -75,7 +75,7 @@ deploy:
   ## Freeform volume mounts. More information: https://kubernetes.io/docs/concepts/storage/volumes/
   volumeMounts:
    - name: token
-     mountPath: /var/run/argo/token
+     mountPath: /var/run/argo/
    - name: applications
      mountPath: /tmp/config/
 
