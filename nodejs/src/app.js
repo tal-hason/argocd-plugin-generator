@@ -31,11 +31,13 @@ const PORT = process.env.PORT || 8080;
 
 const server = http.createServer((req, res) => {
   if (req.headers.authorization !== `Bearer ${token}`) {
+    console.log('Unauthorized request');
     forbidden(res);
     return;
   }
 
   if (req.url === '/api/v1/getparams.execute' && req.method === 'POST') {
+    console.log('Received POST request for /api/v1/getparams.execute');
     // Use the first configuration loaded from the 'config' folder
     if (configurations.length > 0) {
       const apiPayload = configurations[0].apiPayload;
@@ -46,18 +48,23 @@ const server = http.createServer((req, res) => {
         },
       };
 
+      console.log('Sending response for /api/v1/getparams.execute');
       reply(res, response);
     } else {
       // Handle the case when no configurations are loaded
+      console.log('No configurations found');
       reply(res, { error: 'No configurations found' });
     }
   } else if (req.url === '/health/liveliness') {
+    console.log('Received GET request for /health/liveliness');
     // Implement the liveliness probe logic here
     livelinessProbe(res);
   } else if (req.url === '/health/readiness') {
+    console.log('Received GET request for /health/readiness');
     // Implement the readiness probe logic here
     readinessProbe(res);
   } else {
+    console.log('Received request for an unsupported path:', req.url);
     unsupported(res);
   }
 });
@@ -80,6 +87,7 @@ function unsupported(res) {
 function livelinessProbe(res) {
   // Implement the liveliness probe logic here
   // For example, you can check if a critical component is running
+  console.log('Liveliness probe successful');
   res.writeHead(200);
   res.end('Liveliness: OK');
 }
@@ -87,6 +95,7 @@ function livelinessProbe(res) {
 function readinessProbe(res) {
   // Implement the readiness probe logic here
   // For example, you can check if your application is ready to serve requests
+  console.log('Readiness probe successful');
   res.writeHead(200);
   res.end('Readiness: OK');
 }
