@@ -103,7 +103,7 @@ function forbidden(res) {
 
 function unsupported(res) {
   res.writeHead(404);
-  res.end('Not Found');
+  res.send('Not Found');
 }
 
 function livelinessProbe(res) {
@@ -111,7 +111,7 @@ function livelinessProbe(res) {
   // For example, you can check if a critical component is running
   console.log('Liveliness probe successful');
   res.writeHead(200);
-  res.end('Liveliness: OK');
+  res.send('Liveliness: OK');
 }
 
 function readinessProbe(res) {
@@ -119,7 +119,7 @@ function readinessProbe(res) {
   // For example, you can check if your application is ready to serve requests
   console.log('Readiness probe successful');
   res.writeHead(200);
-  res.end('Readiness: OK');
+  res.send('Readiness: OK');
 }
 
 server.listen(PORT, () => {
