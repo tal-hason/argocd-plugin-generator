@@ -1,21 +1,33 @@
-const http = require('http');
-const fs = require('fs');
-const path = require('path');
+const express = require('express');
+const bodyParser = require('body-parser');
 const yaml = require('js-yaml');
-const util = require('util'); // Import the util module
+const util = require('util');
+const fs = require('fs');
 
-// Remove the token variable as it's not needed for probes
+const app = express();
+app.use(bodyParser.json());
+
+// Read the token from the file at /var/run/argo/token
+const tokenFilePath = '/var/run/argo/token';
+let token;
+
+try {
+  token = fs.readFileSync(tokenFilePath, 'utf-8').trim();
+} catch (err) {
+  console.error(`Error reading token from ${tokenFilePath}:`, err);
+  process.exit(1); // Exit the application if the token cannot be read
+}
 
 // Define a function to load configurations from the 'config' folder
 function loadConfigurations() {
-  const configFolder = path.join(__dirname, 'config'); // Path to the 'config' folder
+  const configFolder = './config'; // Path to the 'config' folder
   const configFiles = fs.readdirSync(configFolder);
 
   const configurations = [];
 
   configFiles.forEach((file) => {
     if (file.endsWith('.yaml')) {
-      const filePath = path.join(configFolder, file);
+      const filePath = `${configFolder}/${file}`;
       const configYAML = fs.readFileSync(filePath, 'utf-8');
       const config = yaml.load(configYAML); // Use yaml.load instead of yaml.safeLoad
       configurations.push(config);
@@ -34,94 +46,60 @@ const configurations = loadConfigurations();
 // Get the port from the PORT environment variable or default to 8080
 const PORT = process.env.PORT || 8080;
 
-const server = http.createServer((req, res) => {
-  // Remove the token authorization check here for health probes
-  if (req.url === '/health/liveliness') {
-    console.log('Received GET request for /health/liveliness');
-    // Implement the liveliness probe logic here
-    livelinessProbe(res);
-  } else if (req.url === '/health/readiness') {
-    console.log('Received GET request for /health/readiness');
-    // Implement the readiness probe logic here
-    readinessProbe(res);
-  } else if (req.headers.authorization !== `Bearer ${token}`) {
+app.post('/api/v1/getparams.execute', (req, res) => {
+  console.log('Received POST request for /api/v1/getparams.execute');
+  // Read and print the POST request body
+  const requestBody = req.body;
+  console.log('POST request body:');
+  console.log(JSON.stringify(requestBody, null, 2));
+
+  // Check if the request includes the correct token
+  if (req.headers.authorization !== `Bearer ${token}`) {
     console.log('Unauthorized request');
-    forbidden(res);
+    res.status(403).json({ error: 'Forbidden' });
     return;
   }
 
-  if (req.url === '/api/v1/getparams.execute' && req.method === 'POST') {
-    console.log('Received POST request for /api/v1/getparams.execute');
-    // Read and print the POST request body
-    let requestBody = '';
-    req.on('data', (chunk) => {
-      requestBody += chunk.toString();
-    });
+  // Use the first configuration loaded from the 'config' folder
+  if (configurations.length > 0) {
+    const generateApplication = configurations[0].GenerateApplication; // Use the correct field name
 
-    req.on('end', () => {
-      console.log('POST request body:');
-      console.log(requestBody);
+    const response = {
+      output: {
+        parameters: generateApplication, // Use the correct field name
+      },
+    };
 
-      // Use the first configuration loaded from the 'config' folder
-      if (configurations.length > 0) {
-        const generateApplication = configurations[0].GenerateApplication; // Use the correct field name
-
-        const response = {
-          output: {
-            parameters: generateApplication, // Use the correct field name
-          },
-        };
-
-        console.log('Sending response for /api/v1/getparams.execute');
-        reply(res, response);
-      } else {
-        // Handle the case when no configurations are loaded
-        console.log('No configurations found');
-        reply(res, { error: 'No configurations found' });
-      }
-    });
+    console.log('Sending response for /api/v1/getparams.execute');
+    res.status(200).json(response);
   } else {
-    console.log('Received request for an unsupported path:', req.url);
-    unsupported(res);
+    // Handle the case when no configurations are loaded
+    console.log('No configurations found');
+    res.status(500).json({ error: 'No configurations found' });
   }
 });
 
-// Add an error event handler to prevent unhandled errors
-server.on('error', (err) => {
-  console.error('Server error:', err);
+// Separate endpoints for liveness and readiness probes
+app.get('/health/liveliness', (req, res) => {
+  console.log('Received GET request for /health/liveliness');
+  // Implement the liveness probe logic here
+  // For example, you can check if a critical component is running
+  res.status(200).send('Liveliness: OK');
 });
 
-function reply(res, data) {
-  res.writeHead(200, { 'Content-Type': 'application/json' });
-  res.end(JSON.stringify(data));
-}
-
-function forbidden(res) {
-  res.writeHead(403);
-  res.end('Forbidden');
-}
-
-function unsupported(res) {
-  res.writeHead(404);
-  res.end('Not Found');
-}
-
-function livelinessProbe(res) {
-  // Implement the liveliness probe logic here
-  // For example, you can check if a critical component is running
-  console.log('Liveliness probe successful');
-  res.writeHead(200);
-  res.end('Liveliness: OK');
-}
-
-function readinessProbe(res) {
+app.get('/health/readiness', (req, res) => {
+  console.log('Received GET request for /health/readiness');
   // Implement the readiness probe logic here
   // For example, you can check if your application is ready to serve requests
-  console.log('Readiness probe successful');
-  res.writeHead(200);
-  res.end('Readiness: OK');
-}
+  res.status(200).send('Readiness: OK');
+});
 
-server.listen(PORT, () => {
+// Respond with a 404 for unsupported paths
+app.use((req, res) => {
+  console.log('Received request for an unsupported path:', req.url);
+  res.status(404).send('Not Found');
+});
+
+app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
