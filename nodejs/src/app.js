@@ -16,7 +16,7 @@ function loadConfigurations() {
     if (file.endsWith('.yaml')) {
       const filePath = path.join(configFolder, file);
       const configYAML = fs.readFileSync(filePath, 'utf-8');
-      const config = yaml.safeLoad(configYAML);
+      const config = yaml.load(configYAML); // Use yaml.load instead of yaml.safeLoad
       configurations.push(config);
     }
   });
