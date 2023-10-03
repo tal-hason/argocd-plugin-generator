@@ -57,6 +57,8 @@ const PORT = process.env.PORT || 8080;
  *   post:
  *     summary: Get parameters
  *     description: Get parameters from the API.
+ *     security:
+ *       - BearerAuth: [] 
  *     requestBody:
  *       required: true
  *       content:
