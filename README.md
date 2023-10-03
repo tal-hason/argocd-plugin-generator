@@ -30,7 +30,7 @@ The script accepts 2 running arguments the 1st is the commit message, the 2nd is
 
 the Docker file build the application based on the _registry.access.redhat.com/ubi9/nodejs-18_ as builder and _registry.access.redhat.com/ubi9/nodejs-18-minimal_ as the final running container.
 
-    During the build it will create a default token for the argocd plugin with _12345678_ as it's value.
+    > During the build it will create a default token for the argocd plugin with _12345678_ as it's value.
 
 **Swagger-UI**
 
