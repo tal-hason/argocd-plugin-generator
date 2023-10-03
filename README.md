@@ -145,13 +145,10 @@ spec:
           - CreateNamespace=true
 ```
 
-> {{name}} - this is the _name_ object from each item in the GenerateApplication array.
-
-> {{project}} - this is the _project_ object from each item in the GenerateApplication array.
-
-> {{image}} - this is the _image_ object from each item in the GenerateApplication array.
-
-> {{tag}} - this is the _tag_ object from each item in the GenerateApplication array.
+- {{name}} - this is the _name_ object from each item in the GenerateApplication array.
+- {{project}} - this is the _project_ object from each item in the GenerateApplication array.
+- {{image}} - this is the _image_ object from each item in the GenerateApplication array.
+- {{tag}} - this is the _tag_ object from each item in the GenerateApplication array.
 
 Secrets:
 we have 2 secrets in the template:
