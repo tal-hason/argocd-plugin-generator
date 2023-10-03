@@ -6,6 +6,16 @@
 
 ---
 
+## What you need to make it work
+
+- Openshift 4.13 Cluster (Get Openshift local [Here](https://developers.redhat.com/products/openshift-local/overview?source=sso))
+- Openshift-GitOps v1.10 (ArgoCD 2.8) ([Install Openshift-Gitops](https://docs.openshift.com/gitops/1.10/installing_gitops/installing-openshift-gitops.html))
+- OC client (Get it From [here](https://docs.openshift.com/container-platform/4.13/cli_reference/openshift_cli/getting-started-cli.html#installing-openshift-cli))
+- HELM cli (Get it From [Here](https://github.com/helm/helm/releases))
+- yq (Get it from [Here](https://github.com/mikefarah/yq/#install))
+
+---
+
 ## What we have here
 
 ### Lets explian nodeJS folder
@@ -121,4 +131,9 @@ data:
 
 Under the ArgoApps folder have the following:
 
-- Plugin folder, that holds the plugin Argo Application that directs to the git repo to the HELM Chart folder
+- Plugin folder, that holds the plugin Argo Application that directs to the git repo to the HELM Chart folder.
+- Project.yaml, an Argo Project.
+- AppofApps.yaml, An app of apps application to bootstrap the plugin and application set
+- kustomization.yaml, an easy way to deploy all YAMLs in one command.
+
+after we have installed all our needed tools [Here]()
