@@ -1,4 +1,4 @@
-FROM registry.access.redhat.com/ubi9/nodejs-18
+FROM registry.access.redhat.com/ubi9/nodejs-18 as builder
 
 # Create app directory
 WORKDIR /tmp
@@ -11,14 +11,28 @@ COPY src/package*.json ./
 
 
 # update the base image
-RUN npm install && npm audit fix --force && \
-    mkdir -p /var/run/argo/ && \
-    echo 12345678 > /var/run/argo/token
+RUN npm install && npm audit fix --force
 # If you are building your code for production
 # RUN npm ci --only=production
 
 # Bundle app source
-COPY src .
+
+FROM registry.access.redhat.com/ubi9/nodejs-18-minimal
+
+#set Working Dir
+WORKDIR /tmp
+
+# create default token
+USER root
+
+RUN mkdir -p /var/run/argo/ && \
+    echo 12345678 > /var/run/argo/token
+
+USER 1001
+
+COPY --from=builder /tmp . 
+
+COPY src/*js .
 
 USER 1001
 
