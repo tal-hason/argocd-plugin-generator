@@ -82,8 +82,8 @@ deploy:
   ## Freeform volumes. More information: https://kubernetes.io/docs/concepts/storage/volumes/
   volumes:
    - name: token
-     Secret:
-       name: argocd-app-set-plugin-token
+     secret:
+       secretName: argocd-app-set-plugin-token
    - name: applications
      configMap:
        name: applicationset-file   
