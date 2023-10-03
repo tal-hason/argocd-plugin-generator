@@ -1,0 +1,8 @@
+apiVersion: v2
+description: A Helm chart to deploy Argo Plugin Web-Application
+keywords:
+- runtimes
+- app
+name: Argo-Plugin
+version: 0.0.1
+icon: https://icons-for-free.com/download-icon-argocd-1331550886883580947_512.png

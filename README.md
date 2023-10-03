@@ -57,12 +57,12 @@ Now you can see you plugin generator Payload converted to JSON.
 
 Under our GItops Folder we find 2 Sub Folders:
 
-- Application, Holds our HELM Chart with it values file to deploy our plugin web-application
+- Argo-Plugin, Holds our HELM Chart with it values file to deploy our plugin web-application
 - ArgoApps, Holds all our argoCD object with kustomaized.
 
-#### Application Folder
+#### Argo-Plugin Folder
 
-Please read the [README](GitOps/Application/README.md) file to under stand the Chart
+Please read the [README](GitOps/Argo-Plugin/README.md) file to under stand the Chart
 
 Some Trick and Tips
 
@@ -119,3 +119,6 @@ data:
 
 #### ArgoApps Folder
 
+Under the ArgoApps folder have the following:
+
+- Plugin folder, that holds the plugin Argo Application that directs to the git repo to the HELM Chart folder
