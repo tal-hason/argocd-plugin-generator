@@ -5,5 +5,5 @@ metadata:
   labels:
     {{- include "app.labels" . | nindent 4 }}
 data:
-  token: "$argocd-app-set-plugin-token:token" # Alternatively $<some_K8S_secret>:plugin.myplugin.token
-  baseUrl: 'http://{{ include "app.name" . }}-{{ .Values.global.serviceName }}:{{ .Values.deploy.ports[0].port }} '
+  token: "$argocd-app-set-plugin-token:token"
+  baseUrl: 'http://{{ include "app.name" . }}-{{ .Values.global.serviceName }}:8080'
