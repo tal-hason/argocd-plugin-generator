@@ -13,10 +13,8 @@ spec:
     metadata:
       labels:
         {{- include "app.labels" . | nindent 8 }}
-      {{- if .Values.deploy.applicationProperties.enabled }}
       annotations:
         checksum/config: {{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}
-      {{- end }}
     spec:
 {{- if .Values.deploy.initContainers }}
       initContainers:
