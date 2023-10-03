@@ -55,7 +55,7 @@ elif [ "$action" == "push" ]; then
   read -p "Do you want to update the Helm values file (values.yaml)? (y/n): " update_values
   if [ "$update_values" == "y" ]; then
     # Use yq to update the tag in the Helm values file
-    yq e -i ".image.tag = \"$BUILD_TAG\"" ../GitOps/Application/values.yaml
+    yq e -i ".image.tag = \"$BUILD_TAG\"" ../GitOps/Argo-Plugin/values.yaml
 
     # Commit and push the updated Helm values file
     git add -A
