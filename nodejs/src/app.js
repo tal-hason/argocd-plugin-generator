@@ -3,6 +3,9 @@ const bodyParser = require('body-parser');
 const yaml = require('js-yaml');
 const util = require('util');
 const fs = require('fs');
+const swaggerUi = require('swagger-ui-express');
+const swaggerJsdoc = require('swagger-jsdoc');
+const swaggerSpec = require('./swagger'); // Path to your swagger.js file
 
 const app = express();
 
@@ -47,6 +50,30 @@ const configurations = loadConfigurations();
 
 // Get the port from the PORT environment variable or default to 8080
 const PORT = process.env.PORT || 8080;
+
+/**
+ * @swagger
+ * /api/v1/getparams.execute:
+ *   post:
+ *     summary: Get parameters
+ *     description: Get parameters from the API.
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               // Define your request body properties here
+ *     responses:
+ *       '200':
+ *         description: Successful response
+ *       '403':
+ *         description: Forbidden
+ *       '500':
+ *         description: Internal Server Error
+ */
+ 
 
 app.post('/api/v1/getparams.execute', (req, res) => {
   console.log('Received POST request for /api/v1/getparams.execute');
@@ -95,6 +122,9 @@ app.get('/health/readiness', (req, res) => {
   // For example, you can check if your application is ready to serve requests
   res.status(200).send('Readiness: OK');
 });
+
+// Serve Swagger UI at the /api-docs route
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 // Respond with a 404 for unsupported paths
 app.use((req, res) => {
