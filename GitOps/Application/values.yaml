@@ -84,7 +84,6 @@ deploy:
    - name: token
      Secret:
        name: argocd-app-set-plugin-token
-       key: token
    - name: applications
      configMap:
        name: applicationset-file   
