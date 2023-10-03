@@ -47,7 +47,7 @@ elif [ "$action" == "push" ]; then
     yq e -i ".image.tag = \"$BUILD_TAG\"" ../GitOps/Application/values.yaml
 
     # Commit and push the updated Helm values file
-    git add GitOps/Application/values.yaml
+    git add -A
     git commit -m "Update container image tag in Helm values file to $BUILD_TAG"
     git push
     echo "Helm values file updated and pushed to the Git repository."

@@ -3,7 +3,7 @@ image:
   ## Defaults to the release name
   name: quay.io/thason/argocd-appset-plugin
   ## Tag that you want to build/deploy
-  tag: "606e1bd"
+  tag: "515f454"
 ## Application/Deployment-specific values (For configuring Deployment, Service, Route, ConfigMap, etc)
 deploy:
   ## Number of pod replicas to deploy
@@ -74,20 +74,18 @@ deploy:
 
   ## Freeform volume mounts. More information: https://kubernetes.io/docs/concepts/storage/volumes/
   volumeMounts:
-   - name: token
-     mountPath: /var/run/argo/
-   - name: applications
-     mountPath: /tmp/config/
-
+    - name: token
+      mountPath: /var/run/argo/
+    - name: applications
+      mountPath: /tmp/config/
   ## Freeform volumes. More information: https://kubernetes.io/docs/concepts/storage/volumes/
   volumes:
-   - name: token
-     secret:
-       secretName: argocd-app-set-plugin-token
-   - name: applications
-     configMap:
-       name: applicationset-file   
-
+    - name: token
+      secret:
+        secretName: argocd-app-set-plugin-token
+    - name: applications
+      configMap:
+        name: applicationset-file
   ## Freeform init containers: More information: https://kubernetes.io/docs/concepts/workloads/pods/init-containers/
   initContainers:
   #  - name: my-init-container
