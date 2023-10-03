@@ -9,7 +9,7 @@ spec:
     server: 'https://kubernetes.default.svc'
   project: argocd-plugin
   source:
-    path: GitOps/Application/Plugin
+    path: GitOps/ArgoApps/Plugin
     repoURL: 'https://github.com/tal-hason/argocd-plugin-generator.git'
     targetRevision: main
   syncPolicy:
