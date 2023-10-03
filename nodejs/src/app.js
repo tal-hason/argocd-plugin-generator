@@ -71,11 +71,11 @@ const server = http.createServer((req, res) => {
         reply(res, { error: 'No configurations found' });
       }
     });
-  } else if (req.url === '/health/liveliness') {
+  } if (req.url === '/health/liveliness') {
     console.log('Received GET request for /health/liveliness');
     // Implement the liveliness probe logic here
     livelinessProbe(res);
-  } else if (req.url === '/health/readiness') {
+  } if (req.url === '/health/readiness') {
     console.log('Received GET request for /health/readiness');
     // Implement the readiness probe logic here
     readinessProbe(res);
