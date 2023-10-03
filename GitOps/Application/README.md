@@ -6,8 +6,6 @@ A Helm chart for  deploying a ArgoCD Plug-In Generator Web-Application
 
 Below is a table of each value used to configure this chart.
 
-You must change the `build.uri`, `build.ref` and `build.startupProject` to refer to your own application.
-`build.imageStreamTag.name` must be set to match the .NET version used by your application.
 
 | Value | Description | Default | Additional Information |
 | ----- | ----------- | ------- | ---------------------- |
