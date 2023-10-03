@@ -1,4 +1,4 @@
-# .NET Helm Chart
+# Plugin Generator Helm Chart
 
 A Helm chart for  deploying a ArgoCD Plug-In Generator Web-Application
 
