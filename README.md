@@ -8,7 +8,7 @@
 
 ## What we have here
 
-**Lets explian nodeJS folder
+**Lets explian nodeJS folder**
 
 under it we have:
 
