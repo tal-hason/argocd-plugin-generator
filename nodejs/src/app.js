@@ -103,23 +103,23 @@ function forbidden(res) {
 
 function unsupported(res) {
   res.writeHead(404);
-  res.send('Not Found');
+  res.end('Not Found');
 }
 
 function livelinessProbe(res) {
   // Implement the liveliness probe logic here
   // For example, you can check if a critical component is running
   console.log('Liveliness probe successful');
-  res.writeHead(200);
-  res.send('Liveliness: OK');
+  res.status(200);
+  res.end('Liveliness: OK');
 }
 
 function readinessProbe(res) {
   // Implement the readiness probe logic here
   // For example, you can check if your application is ready to serve requests
   console.log('Readiness probe successful');
-  res.writeHead(200);
-  res.send('Readiness: OK');
+  res.status(200);
+  res.end('Readiness: OK');
 }
 
 server.listen(PORT, () => {
