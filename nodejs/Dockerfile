@@ -32,7 +32,8 @@ USER 1001
 
 COPY --from=builder /tmp . 
 
-COPY src/*.js src/config/ /tmp/
+COPY src/*.js .
+COPY src/config ./config
 
 USER 1001
 
