@@ -9,6 +9,12 @@ fi
 commit_message="$1"
 action="$2"
 
+# Check if IMAGE_NAME environment variable exists
+if [ -z "$IMAGE_NAME" ]; then
+  read -p "Enter the image repository (e.g., quay.io/thason/argocd-appset-plugin): " IMAGE_NAME
+  export IMAGE_NAME
+fi
+
 # Commit the changes with the provided commit message
 git add -A
 git commit -m "$commit_message"
@@ -17,11 +23,11 @@ git commit -m "$commit_message"
 BUILD_TAG=$(git rev-parse --short HEAD)
 
 # Build the container image and tag it with the BUILD_TAG
-podman build . -t quay.io/thason/argocd-appset-plugin:$BUILD_TAG
+podman build . -t "$IMAGE_NAME:$BUILD_TAG"
 
 if [ "$action" == "test" ]; then
   # Run the container for testing with a name 'argocd-plugin'
-  podman run -it -p 8080:8080 --name=argocd-plugin quay.io/thason/argocd-appset-plugin:$BUILD_TAG &
+  podman run -it -p 8080:8080 --name=argocd-plugin "$IMAGE_NAME:$BUILD_TAG" &
   echo "Container for testing started."
 
   # Print the container log
@@ -33,11 +39,11 @@ if [ "$action" == "test" ]; then
 
   echo "Container ID: $container_id"
   echo "Container Log:"
-  podman logs -f $container_id
+  podman logs -f "$container_id"
 
 elif [ "$action" == "push" ]; then
   # Push the container image to the repository
-  podman push quay.io/thason/argocd-appset-plugin:$BUILD_TAG
+  podman push "$IMAGE_NAME:$BUILD_TAG"
   echo "Container image pushed to repository."
 
   # Ask the user if they want to update the Helm values file
