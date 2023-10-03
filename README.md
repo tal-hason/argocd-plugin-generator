@@ -18,7 +18,7 @@
 
 ## Please Fork this repo and update/change it to fit your deployment and needs
 
-## the Applcation generated from the ApplicationSet can be found [here](https://github.com/gotham-demo), please also fork
+## the Application generated from the ApplicationSet can be found [here](https://github.com/gotham-demo), please also fork
 
 ## What we have here
 
