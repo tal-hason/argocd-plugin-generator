@@ -48,21 +48,21 @@ const server = http.createServer((req, res) => {
     req.on('data', (chunk) => {
       requestBody += chunk.toString();
     });
-  
+
     req.on('end', () => {
       console.log('POST request body:');
       console.log(requestBody);
-  
+
       // Use the first configuration loaded from the 'config' folder
       if (configurations.length > 0) {
         const generateApplication = configurations[0].GenerateApplication; // Use the correct field name
-  
+
         const response = {
           output: {
             parameters: generateApplication, // Use the correct field name
           },
         };
-  
+
         console.log('Sending response for /api/v1/getparams.execute');
         reply(res, response);
       } else {
@@ -71,8 +71,6 @@ const server = http.createServer((req, res) => {
         reply(res, { error: 'No configurations found' });
       }
     });
-  }
-  {
   } else if (req.url === '/health/liveliness') {
     console.log('Received GET request for /health/liveliness');
     // Implement the liveliness probe logic here
