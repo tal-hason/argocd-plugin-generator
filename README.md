@@ -16,6 +16,10 @@
 
 ---
 
+## Please Fork this repo and update/change it to fit your deployment and needs
+
+## the Applcation generated from the ApplicationSet can be found [here](https://github.com/gotham-demo), please also fork
+
 ## What we have here
 
 ### Lets explian nodeJS folder
@@ -123,6 +127,7 @@ data:
 ```
 
 > Notes:
+>
 > - the secret will generate new token each time a new commit will be created, so always double check your token if your testing with the swagger of Postman
 > - if the Secret has been changed the Deployment will rollout and reload the new token.
 > the name of the token is part of the plugin config in the ConfigMap _plugin-config_
@@ -136,4 +141,14 @@ Under the ArgoApps folder have the following:
 - AppofApps.yaml, An app of apps application to bootstrap the plugin and application set
 - kustomization.yaml, an easy way to deploy all YAMLs in one command.
 
-after we have installed all our needed tools [Here]()
+after we have installed all our needed tools [Here](https://github.com/tal-hason/argocd-plugin-generator#what-you-need-to-make-it-work) to bootstarp the pluging generator just run the following command,from the root of the repo:
+
+```Bash
+oc apply -k GitOps/ArgoApps 
+```
+
+this will install the Argo Project and the app of apps and then the Plugin applicaiton and the applicationSet
+
+![Argo-UI](staticFiles/Argo-UI.png)
+
+### Please Feel free to Open Issues or Create Pull reqeust for any features
