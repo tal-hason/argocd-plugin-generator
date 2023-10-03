@@ -1,4 +1,0 @@
-output:
-  parameters:
-    - hello: world
-    - hello: again

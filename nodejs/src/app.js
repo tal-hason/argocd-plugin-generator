@@ -55,11 +55,11 @@ const server = http.createServer((req, res) => {
 
       // Use the first configuration loaded from the 'config' folder
       if (configurations.length > 0) {
-        const apiPayload = configurations[0].apiPayload;
+        const generateApplication = configurations[0].generateApplication;
 
         const response = {
           output: {
-            parameters: apiPayload,
+            parameters: generateApplication,
           },
         };
 
