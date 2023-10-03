@@ -31,3 +31,17 @@ The script accepts 2 running arguments the 1st is the commit message, the 2nd is
 the Docker file build the application based on the _registry.access.redhat.com/ubi9/nodejs-18_ as builder and _registry.access.redhat.com/ubi9/nodejs-18-minimal_ as the final running container.
 
     During the build it will create a default token for the argocd plugin with _12345678_ as it's value.
+
+**Swagger-UI**
+
+The appliocation expose Swagger-UI at the _/api-docs_ (i.e <https://plugin-argo-plugin-openshift-gitops.apps-crc.testing/api-docs>).
+To be able to see the JSON of the Web-Application you need to authorized the Swagger with the Auto-Generated token from the appliaction secret
+
+To Get the secret:
+
+```Bash
+oc get secrets argocd-app-set-plugin-token -n openshift-gitops -o yaml | yq eval '.data.token' | base64 -d
+```
+
+After you have the Secret Click Authorize Button on the top right of the screen
+![Swagger](staticFiles/swagger-auth.png)
