@@ -23,5 +23,11 @@ under it we have:
 The script accepts 2 running arguments the 1st is the commit message, the 2nd is the desired opertaion
 
 - test, this will build and run the application image
-- push, this will build and push the application image to the image registry, after it prompt to either update the HELM chart values file or not, with the new image tag.
+- push, this will build and push the application image to the image registry, after it prompt to either update the HELM chart values file or not with the new image tag.
     to work with the file create an enviorment variable named IMAGE_NAME with your _image.registry/repo_name/image_, if you forgot the script will ask you for the image name in the first run.
+
+**Dockerfile**
+
+the Docker file build the application based on the _registry.access.redhat.com/ubi9/nodejs-18_ as builder and _registry.access.redhat.com/ubi9/nodejs-18-minimal_ as the final running container.
+
+    During the build it will create a default token for the argocd plugin with _12345678_ as it's value.

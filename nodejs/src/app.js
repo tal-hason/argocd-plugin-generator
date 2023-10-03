@@ -31,7 +31,7 @@ function loadConfigurations() {
     if (file.endsWith('.yaml')) {
       const filePath = `${configFolder}/${file}`;
       const configYAML = fs.readFileSync(filePath, 'utf-8');
-      const config = yaml.load(configYAML); // Use yaml.load instead of yaml.safeLoad
+      const config = yaml.load(configYAML, { schema: yaml.JSON_SCHEMA }); // Use yaml.load with schema
       configurations.push(config);
 
       // Print the content of the loaded YAML file with better formatting
