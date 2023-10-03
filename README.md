@@ -8,7 +8,7 @@
 
 ## What we have here
 
-**Lets explian nodeJS folder**
+### Lets explian nodeJS folder
 
 under it we have:
 
@@ -45,3 +45,13 @@ oc get secrets argocd-app-set-plugin-token -n openshift-gitops -o yaml | yq eval
 
 After you have the Secret Click Authorize Button on the top right of the screen
 ![Swagger](staticFiles/swagger-auth.png)
+
+After clicking it a pop-up menu will open there enter the token from the secret
+![login](staticFiles/swagger-login.png)
+
+Now you can see you plugin generator Payload converted to JSON.
+
+---
+
+### GitOps Folder
+
