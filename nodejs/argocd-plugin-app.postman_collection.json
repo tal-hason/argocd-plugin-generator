@@ -1,0 +1,51 @@
+{
+	"info": {
+		"_postman_id": "db1aac83-e05c-4c7d-8369-f8696ab0d0c1",
+		"name": "argocd-plugin-app",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "23232602"
+	},
+	"item": [
+		{
+			"name": "localhost:8080/api/v1/getparams.execute",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "12345678"
+					}
+				},
+				"method": "POST",
+				"header": [],
+				"url": "localhost:8080/api/v1/getparams.execute"
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": {
+			"token": "12345678"
+		}
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
