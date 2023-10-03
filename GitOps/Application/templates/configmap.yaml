@@ -3,6 +3,6 @@ kind: ConfigMap
 metadata:
   name: applicationset-file
   labels:
-    '{{- include "app.labels" . | nindent 4 }}'
+    {{- include "app.labels" . | nindent 4 }}
 data:
-  '{{ (.Files.Glob "ApplcaitionFiles/*").AsConfig | indent 2 }}'
+  {{ (.Files.Glob "ApplcaitionFiles/*").AsConfig | indent 2 }}
