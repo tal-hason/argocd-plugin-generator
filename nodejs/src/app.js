@@ -86,6 +86,11 @@ const server = http.createServer((req, res) => {
   }
 });
 
+// Add an error event handler to prevent unhandled errors
+server.on('error', (err) => {
+  console.error('Server error:', err);
+});
+
 function reply(res, data) {
   res.writeHead(200, { 'Content-Type': 'application/json' });
   res.end(JSON.stringify(data));
