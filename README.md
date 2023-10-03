@@ -104,6 +104,52 @@ GenerateApplication:
 each new Object in GenerateApplication key with generate an Argo application via the application Set
 you can add more or even change the schema, just adept the [ApplicationSet](GitOps/ArgoApps/Plugin/ApplicationSet-Plugin.yaml).
 
+```YAML
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: plugin-applicationset
+  namespace: openshift-gitops
+spec:
+  generators:
+    - plugin:
+        configMapRef:
+          name: plugin-config
+        requeueAfterSeconds: 30
+  template:
+    metadata:
+      name: "{{name}}-{{project}}"
+    spec:
+      project: argocd-plugin
+      source:
+        helm:
+          valueFiles:
+            - gotham-demo/develop/values-{{name}}.yaml
+          parameters:
+            - name: "image.name"
+              value: '{{image}}'
+            - name: "image.tag"
+              value: '{{tag}}'
+            - name: "global.namespace"
+              value: 'plugin-test'
+        repoURL: https://github.com/{{project}}/gotham-cd.git
+        path: Application
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: plugin-test
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+        syncOptions:
+          - CreateNamespace=true
+```
+
+> {{name}} - this is the _name_ object from each item in the GenerateApplication array.
+> {{project}} - this is the _project_ object from each item in the GenerateApplication array.
+> {{image}} - this is the _image_ object from each item in the GenerateApplication array.
+> {{tag}} - this is the _tag_ object from each item in the GenerateApplication array.
+
 Secrets:
 we have 2 secrets in the template:
 
