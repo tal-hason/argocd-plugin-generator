@@ -8,6 +8,8 @@ image:
 deploy:
   ## Number of pod replicas to deploy
   replicas: 1
+  ## Number of ReplicaSet the controller will save to be able to rollback (default in 10)
+  historylimit: 2
   ## Freeform resources. More information: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
   resources:
   #  limits:
