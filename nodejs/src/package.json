@@ -1,0 +1,17 @@
+{
+  "name": "application-set-generator",
+  "version": "1.0.0",
+  "description": "an application to generate argoCD Application from applicationSet",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Tal Hason",
+  "license": "ISC",
+  "dependencies": {
+    "fs": "^0.0.1-security",
+    "http": "^0.0.1-security",
+    "js-yaml": "^4.1.0",
+    "path": "^0.12.7"
+  }
+}
