@@ -89,23 +89,22 @@ app.post('/api/v1/getparams.execute', (req, res) => {
     return;
   }
 
-  // Use the first configuration loaded from the 'config' folder
-  if (configurations.length > 0) {
-    const generateApplication = configurations[0].GenerateApplication; // Use the correct field name
+  // Merge configurations from all YAML files in the 'config' folder
+  const allConfigurations = [];
+  configurations.forEach((config) => {
+    if (config.GenerateApplication) {
+      allConfigurations.push(...config.GenerateApplication);
+    }
+  });
 
-    const response = {
-      output: {
-        parameters: generateApplication, // Use the correct field name
-      },
-    };
+  const response = {
+    output: {
+      parameters: allConfigurations,
+    },
+  };
 
-    console.log('Sending response for /api/v1/getparams.execute');
-    res.status(200).json(response);
-  } else {
-    // Handle the case when no configurations are loaded
-    console.log('No configurations found');
-    res.status(500).json({ error: 'No configurations found' });
-  }
+  console.log('Sending response for /api/v1/getparams.execute');
+  res.status(200).json(response);
 });
 
 // Separate endpoints for liveness and readiness probes
