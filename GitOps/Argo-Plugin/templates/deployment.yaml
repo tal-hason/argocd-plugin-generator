@@ -52,6 +52,10 @@ spec:
             {{- tpl (toYaml .Values.deploy.envFrom) . | nindent 12 }}
 {{- end }}
           volumeMounts:
+            - name: token
+              mountPath: /var/run/argo/
+            - name: applications
+              mountPath: /tmp/config/
 {{- if .Values.deploy.volumeMounts }}
             {{- tpl (toYaml .Values.deploy.volumeMounts) . | nindent 12 }}
 {{- end }}
@@ -59,6 +63,12 @@ spec:
         {{- tpl (toYaml .Values.deploy.extraContainers) . | nindent 8 }}
 {{- end }}
       volumes:
+        - name: token
+          secret:
+            secretName: '{{ .Values.global.serviceName }}-argocd-app-set-plugin-token'
+        - name: applications
+          configMap:
+            name: '{{ .Values.global.serviceName }}-applicationset-file'
 {{- if .Values.deploy.volumes }}
         {{- tpl (toYaml .Values.deploy.volumes) . | nindent 8 }}
 {{- end }}

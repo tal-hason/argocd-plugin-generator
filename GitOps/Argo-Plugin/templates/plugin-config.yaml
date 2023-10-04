@@ -5,5 +5,5 @@ metadata:
   labels:
     {{- include "app.labels" . | nindent 4 }}
 data:
-  token: "$argocd-app-set-plugin-token:token"
+  token: "${{ .Values.global.serviceName }}-argocd-app-set-plugin-token:token"
   baseUrl: 'http://{{ include "app.name" . }}-{{ .Values.global.serviceName }}:8080'
