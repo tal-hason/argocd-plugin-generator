@@ -3,7 +3,9 @@ GenerateApplication:
     project: gotham-demo
     image: quay.io/gotham/riddler
     tag: bc955aa
+    repoURL: https://github.com
   - name: gotham
     project: gotham-demo
     image: quay.io/gotham/gotham
     tag: bc955aa
+    repoURL: https://github.com

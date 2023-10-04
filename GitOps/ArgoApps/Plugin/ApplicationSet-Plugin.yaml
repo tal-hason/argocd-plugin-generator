@@ -25,7 +25,7 @@ spec:
               value: '{{tag}}'
             - name: "global.namespace"
               value: 'plugin-test'
-        repoURL: https://github.com/{{project}}/gotham-cd.git
+        repoURL: '{{repoURL}}/{{project}}/{{project}}-cd.git'
         path: Application
       destination:
         server: https://kubernetes.default.svc

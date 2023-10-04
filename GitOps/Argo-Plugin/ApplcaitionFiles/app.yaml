@@ -3,11 +3,14 @@ GenerateApplication:
     project: gotham-demo
     image: quay.io/gotham/batman
     tag: 4a7050d
+    repoURL: https://github.com
   - name: joker
     project: gotham-demo
     image: quay.io/gotham/joker
     tag: 8280f51
+    repoURL: https://github.com
   - name: robin
     project: gotham-demo
     image: quay.io/gotham/robin
     tag: a678098
+    repoURL: https://github.com
