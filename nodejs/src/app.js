@@ -51,30 +51,6 @@ const configurations = loadConfigurations();
 // Get the port from the PORT environment variable or default to 8080
 const PORT = process.env.PORT || 8080;
 
-/**
- * @swagger
- * /api/v1/getparams.execute:
- *   post:
- *     summary: Get parameters
- *     description: Get parameters from the API.
- *     security:
- *       - BearerAuth: [] # Use the security definition name you define below
- *     requestBody:
- *       required: false
- *     responses:
- *       '200':
- *         description: Successful response
- *       '403':
- *         description: Forbidden
- *       '500':
- *         description: Internal Server Error
- * securityDefinitions:
- *   BearerAuth: # Use this name in the security section above
- *     type: apiKey
- *     name: Authorization
- *     in: header
- */
- 
 app.post('/api/v1/getparams.execute', (req, res) => {
   console.log('Received POST request for /api/v1/getparams.execute');
   // Read and print the POST request body
@@ -93,7 +69,15 @@ app.post('/api/v1/getparams.execute', (req, res) => {
   const allConfigurations = [];
   configurations.forEach((config) => {
     if (config.GenerateApplication) {
-      allConfigurations.push(...config.GenerateApplication);
+      if (Array.isArray(config.GenerateApplication)) {
+        // If GenerateApplication is an array, push each object separately
+        config.GenerateApplication.forEach((appConfig) => {
+          allConfigurations.push(appConfig);
+        });
+      } else {
+        // If GenerateApplication is not an array, push it as is
+        allConfigurations.push(config.GenerateApplication);
+      }
     }
   });
 

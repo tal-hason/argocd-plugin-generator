@@ -1,0 +1,7 @@
+GenerateApplication:
+  name: batman
+  project: gotham-demo
+  image: quay.io/gotham/batman
+  tag: 4a7050d
+  repoURL: https://github.com
+  branch: main

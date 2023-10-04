@@ -1,0 +1,7 @@
+GenerateApplication:
+  name: robin
+  project: gotham-demo
+  image: quay.io/gotham/robin
+  tag: a678098
+  repoURL: https://github.com
+  branch: main

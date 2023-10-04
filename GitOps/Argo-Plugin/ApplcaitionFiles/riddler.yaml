@@ -1,0 +1,7 @@
+GenerateApplication:
+  name: riddler
+  project: gotham-demo
+  image: quay.io/gotham/riddler
+  tag: bc955aa
+  repoURL: https://github.com
+  branch: main
