@@ -1,8 +1,0 @@
-GenerateApplication:
-  name: joker
-  project: gotham-demo
-  image: quay.io/gotham/joker
-  tag: 8280f51
-  repoURL: https://github.com
-  branch: main
-  gitopsRepo: gotham-cd
