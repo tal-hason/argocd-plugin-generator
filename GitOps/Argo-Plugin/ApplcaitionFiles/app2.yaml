@@ -5,5 +5,5 @@ GenerateApplication:
     tag: bc955aa
   - name: gotham
     project: gotham-demo
-    image: quay.io/gotham/githam
+    image: quay.io/gotham/gotham
     tag: bc955aa
