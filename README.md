@@ -208,8 +208,8 @@ this will install the Argo Project and the app of apps and then the Plugin appli
 - you need to duplicate the _Argo-Plugin_ folder under GitOps Folder, rename it
 - update the Chart.yaml with the new folder name under _name:_
 - Under _ArgoApps/Plugin_ Duplicate the ApplicationSet-Plugin.yaml and the Plugin-Application.yaml, rename them and update the paths to your new plugin deployment under _GitOps_ folder.
-- In the application set adjest the template to the new schema that you applies in the new config files.
 - update the _values.yaml_ file under you new created folder with golbal.serviceName={**new name**}
+- In the application set adjest the template to the new schema that you applies in the new config files, and update the config name to the new config, ConfigMap name (Tip: the configMap name have the service name at the beggining)
 - sync the app of apps and a new plugin will be create with a new applicationset
 
 ### Please Feel free to Open Issues or Create Pull reqeust for any features
