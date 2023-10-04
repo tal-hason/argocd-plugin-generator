@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: plugin-config
+  name: '{{ .Values.global.serviceName }}-plugin-config'
   labels:
     {{- include "app.labels" . | nindent 4 }}
 data:
