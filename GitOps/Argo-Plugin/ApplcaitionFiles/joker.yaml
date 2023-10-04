@@ -5,3 +5,4 @@ GenerateApplication:
   tag: 8280f51
   repoURL: https://github.com
   branch: main
+  gitopsRepo: gotham-cd

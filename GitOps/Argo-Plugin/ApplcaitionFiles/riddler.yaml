@@ -5,3 +5,4 @@ GenerateApplication:
   tag: bc955aa
   repoURL: https://github.com
   branch: main
+  gitopsRepo: gotham-cd
