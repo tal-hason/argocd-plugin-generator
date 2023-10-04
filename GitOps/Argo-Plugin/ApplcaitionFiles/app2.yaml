@@ -7,5 +7,5 @@ GenerateApplication:
   - name: gotham
     project: gotham-demo
     image: quay.io/gotham/gotham
-    tag: bc955aa
+    tag: 59d68bf
     repoURL: https://github.com
