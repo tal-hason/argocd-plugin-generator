@@ -1,0 +1,9 @@
+GenerateApplication:
+  - name: riddler
+    project: gotham-demo
+    image: quay.io/gotham/riddler
+    tag: bc955aa
+  - name: gotham
+    project: gotham-demo
+    image: quay.io/gotham/githam
+    tag: bc955aa
