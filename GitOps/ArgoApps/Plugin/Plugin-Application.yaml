@@ -11,7 +11,7 @@ spec:
   source:
     path: GitOps/Argo-Plugin
     repoURL: 'https://github.com/tal-hason/argocd-plugin-generator.git'
-    targetRevision: main
+    targetRevision: adding-project/app-support
   syncPolicy:
     automated:
       prune: true
