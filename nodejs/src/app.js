@@ -56,7 +56,7 @@ const PORT = process.env.PORT || 8080;
  * @swagger
  * /api/v1/getparams.execute:
  *   post:
- *     summary: Get parameters
+ *     summary: Shows the Post body Payload
  *     description: Get parameters from the API.
  *     security:
  *       - BearerAuth: [] # Use the security definition name you define below
