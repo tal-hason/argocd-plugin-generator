@@ -54,7 +54,7 @@ To be able to see the JSON of the Web-Application you need to authorized the Swa
 To Get the secret:
 
 ```Bash
-oc get secrets argocd-app-set-plugin-token -n openshift-gitops -o yaml | yq eval '.data.token' | base64 -d
+oc get secrets plugin-argocd-app-set-plugin-token -n openshift-gitops -o yaml | yq eval '.data.token' | base64 -d
 ```
 
 After you have the Secret Click Authorize Button on the top right of the screen
