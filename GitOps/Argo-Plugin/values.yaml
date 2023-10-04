@@ -3,7 +3,7 @@ image:
   ## Defaults to the release name
   name: quay.io/thason/argocd-appset-plugin
   ## Tag that you want to build/deploy
-  tag: "b9bb6de"
+  tag: "7a24b3a"
 ## Application/Deployment-specific values (For configuring Deployment, Service, Route, ConfigMap, etc)
 deploy:
   ## Number of pod replicas to deploy
