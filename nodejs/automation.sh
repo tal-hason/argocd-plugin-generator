@@ -32,11 +32,11 @@ podman build . -t "$IMAGE_NAME:$BUILD_TAG"
 
 if [ "$action" == "test" ]; then
   # Run the container for testing with a name 'argocd-plugin'
-  podman run -it -p 8080:8080 --name=argocd-plugin "$IMAGE_NAME:$BUILD_TAG" &
+  podman run -it --rm -p 8080:8080 --name argocd-plugin "$IMAGE_NAME:$BUILD_TAG" &
   echo "Container for testing started."
 
   # Print the container log
-  container_id=$(podman ps -lq)
+  container_id=$(echo 'argocd-plugin')
   if [ -z "$container_id" ]; then
     echo "Container not found or failed to start."
     exit 1
