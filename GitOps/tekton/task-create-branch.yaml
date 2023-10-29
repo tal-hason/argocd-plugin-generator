@@ -45,17 +45,17 @@ spec:
 
           export PROJECT=$(echo ${PROJECT} | awk '{print tolower($0)}')          
 
-          echo "GenerateApplication:" >  GitOps/Argo-Plugin/ApplcaitionFiles/${REPO}-${BRACNH}.yaml
+          echo "GenerateApplication:" >  GitOps/Argo-Plugin/ApplcaitionFiles/$REPO-$BRANCH.yaml
 
-          echo "  branch: ${BRANCH}" >>  GitOps/Argo-Plugin/ApplcaitionFiles/${REPO}-${BRACNH}.yaml
+          echo "  branch: ${BRANCH}" >>  GitOps/Argo-Plugin/ApplcaitionFiles/$REPO-$BRANCH.yaml
 
-          echo "  tag: $(params.tag)" >> GitOps/Argo-Plugin/ApplcaitionFiles/${REPO}-${BRACNH}.yaml
+          echo "  tag: $(params.tag)" >> GitOps/Argo-Plugin/ApplcaitionFiles/$REPO}-$BRANCH.yaml
 
-          echo "  repoName: ${REPO}" >> GitOps/Argo-Plugin/ApplcaitionFiles/${REPO}-${BRACNH}.yaml
+          echo "  repoName: ${REPO}" >> GitOps/Argo-Plugin/ApplcaitionFiles/$REPO-$BRANCH.yaml
 
-          echo "  projectName: ${PROJECT}" >> GitOps/Argo-Plugin/ApplcaitionFiles/${REPO}-${BRACNH}.yaml
+          echo "  projectName: ${PROJECT}" >> GitOps/Argo-Plugin/ApplcaitionFiles/$REPO-$BRANCH.yaml
 
-          cat GitOps/Argo-Plugin/ApplcaitionFiles/$BRACNH.yaml
+          cat GitOps/Argo-Plugin/ApplcaitionFiles/$REPO-$BRANCH.yaml
 
       command:
         - /bin/bash
