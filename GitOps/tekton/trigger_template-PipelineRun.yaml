@@ -32,9 +32,9 @@ spec:
           - name: PLUGIN_BRANCH
             value: pull-request
           - name: FROM_BRANCH
-            value: from_branch
+            value: $(tt.params.from_branch)
           - name: NEW_TAG
-            value: truncated_sha
+            value: $(tt.params.truncated_sha)
         pipelineRef:
           name: pull-request
         serviceAccountName: pipeline
