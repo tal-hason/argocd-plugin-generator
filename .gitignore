@@ -1,2 +1,3 @@
 nodejs/src/node_modules
 GitOps/Application/test.yaml
+GitOps/tekton/*.json
