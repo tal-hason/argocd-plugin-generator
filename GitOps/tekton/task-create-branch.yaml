@@ -4,41 +4,8 @@ metadata:
   name: create-app-from-branch
 spec:
   params:
-    - default: github.com
-      description: where your repo is hosted exam (like "github.com" )
-      name: git-url-source
-      type: string
-    - default: tal-hason
-      description: Your GIT User name
-      name: git-user
-      type: string
-    - default: ''
-      description: Your GIT Repository name
-      name: git-repo-name
-      type: string
-    - default: ''
-      name: tag
-      type: string
-    - default: ''
-      name: image
-      type: string
-    - default: ''
-      name: branch
-      type: string
-    - default: ''
-      name: git-secret-name
-      type: string
-    - default: ''
-      name: application-name
-      type: string
-    - default: ''
-      name: deploy-env
-      type: string
-    - default: ''
+    - default: '1234'
       name: service-name
-      type: string
-    - default: ''
-      name: http
       type: string
   steps:
     - args:
@@ -48,36 +15,8 @@ spec:
 
           pwd
 
+          ls -l
 
-          git config --global user.email "tekton@pipeline.com"
-
-          git config --global user.name "$(params.git-user)"
-
-          git clone
-          $(params.http)://$(params.git-url-source)/$(params.git-user)/$(params.git-repo-name).git
-
-          cd
-          $(params.git-repo-name)/Application/$(params.application-name)/$(params.deploy-env)
-
-          ls -la 
-
-          echo "Update image name"
-
-          yq -i '.image.name = "$(params.image)" | .image.tag = "$(params.tag)"'
-          values-$(params.service-name).yaml
-
-          yq -i '.deploy.env[0].value = "$(params.image)" | .deploy.env[1].value
-          = "$(params.tag)"' values-$(params.service-name).yaml
-
-
-          git remote set-url origin
-          $(params.http)://$GIT_TOKEN:x-oauth-basic@$(params.git-url-source)/$(params.git-user)/$(params.git-repo-name).git
-
-          git add .
-
-          git commit -m "update Chart image version"
-
-          git push 
       command:
         - /bin/bash
       env:
