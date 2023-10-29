@@ -57,6 +57,18 @@ spec:
 
           cat GitOps/Argo-Plugin/ApplcaitionFiles/$REPO-$BRANCH.yaml
 
+          echo "Adding the new file to the Plugin Repo"
+
+          git config --global user.email "tekton@pipeline.com"
+
+          git config --global user.name "$(params.project_name)"
+
+          git add -A
+
+          git commit -m "Adding branch $BRANCH PR for Deployment"
+
+          git push
+
       command:
         - /bin/bash
       env:
