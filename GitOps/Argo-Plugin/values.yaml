@@ -92,6 +92,6 @@ deploy:
 global:
   ## Override the release name
   nameOverride: pull-reqeust
-  serviceName: plugin
+  serviceName: pull-reqeust
   runTime: nodejs
   namespace: openshift-gitops
