@@ -1,7 +1,7 @@
 apiVersion: triggers.tekton.dev/v1alpha1
 kind: TriggerTemplate
 metadata:
-  name: pull-request-template
+  name: pull-request-template-taskrun
 spec:
   params:
     - description: Pull Request state
