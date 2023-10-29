@@ -7,7 +7,7 @@ spec:
   destination:
     namespace: openshift-gitops
     server: 'https://kubernetes.default.svc'
-  project: argocd-plugin
+  project: pull-request-plugin
   source:
     path: GitOps/Argo-Plugin
     repoURL: 'https://github.com/tal-hason/argocd-plugin-generator.git'

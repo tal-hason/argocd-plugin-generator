@@ -13,7 +13,7 @@ spec:
     metadata:
       name: "{{name}}-{{project}}"
     spec:
-      project: pull-request
+      project: pull-request-plugin
       source:
         helm:
           valueFiles:
