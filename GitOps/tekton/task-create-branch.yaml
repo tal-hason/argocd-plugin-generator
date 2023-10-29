@@ -20,6 +20,8 @@ spec:
 
           ls -l
 
+          cd 
+
       command:
         - /bin/bash
       env:
