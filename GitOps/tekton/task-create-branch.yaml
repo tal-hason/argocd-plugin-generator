@@ -63,6 +63,10 @@ spec:
 
           git config --global user.name "$(params.project_name)"
 
+          git config --global --add safe.directory /workspace/output
+
+          printenv
+
           git add -A
 
           git commit -m "Adding branch $BRANCH PR for Deployment"
