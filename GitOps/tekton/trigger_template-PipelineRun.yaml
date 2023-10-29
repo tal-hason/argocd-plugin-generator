@@ -31,6 +31,10 @@ spec:
             value: 'https://github.com/tal-hason/argocd-plugin-generator.git'
           - name: PLUGIN_BRANCH
             value: pull-request
+          - name: FROM_BRANCH
+            value: from_branch
+          - name: NEW_TAG
+            value: truncated_sha
         pipelineRef:
           name: pull-request
         serviceAccountName: pipeline
