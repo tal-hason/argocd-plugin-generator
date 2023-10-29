@@ -25,9 +25,11 @@ spec:
           pwd
 
           ls -l
-          
+
           echo "GenerateApplication:" >  GitOps/Argo-Plugin/ApplcaitionFiles/$(params.branch_name).yaml
+
           echo "  branch: $(params.branch_name)" >>  GitOps/Argo-Plugin/ApplcaitionFiles/$(params.branch_name).yaml
+          
           echo "  tag: $(params.tag)" >> GitOps/Argo-Plugin/ApplcaitionFiles/$(params.branch_name).yaml
 
       command:
