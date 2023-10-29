@@ -91,7 +91,7 @@ deploy:
   #    image: registry.redhat.io/ubi8/ubi-minimal
 global:
   ## Override the release name
-  nameOverride: argo-plugin
+  nameOverride: pull-reqeust
   serviceName: plugin
   runTime: nodejs
   namespace: openshift-gitops
