@@ -26,9 +26,13 @@ spec:
 
           ls -l
 
+          export BRANCH=$(params.branch_name)
+
+          export BRACNH=$(echo ${BRANCH} | awk '{print tolower($0)})
+
           echo "GenerateApplication:" >  GitOps/Argo-Plugin/ApplcaitionFiles/$(params.branch_name).yaml
 
-          echo "  branch: $(params.branch_name)" >>  GitOps/Argo-Plugin/ApplcaitionFiles/$(params.branch_name).yaml
+          echo "  branch: ${BRANCH}" >>  GitOps/Argo-Plugin/ApplcaitionFiles/$(params.branch_name).yaml
 
           echo "  tag: $(params.tag)" >> GitOps/Argo-Plugin/ApplcaitionFiles/$(params.branch_name).yaml
 
