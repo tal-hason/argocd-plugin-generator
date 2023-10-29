@@ -7,7 +7,7 @@ spec:
   generators:
     - plugin:
         configMapRef:
-          name: plugin-plugin-config
+          name: pull-reqeust-plugin-config
         requeueAfterSeconds: 30
   template:
     metadata:
