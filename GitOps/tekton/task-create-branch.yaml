@@ -10,6 +10,12 @@ spec:
     - default: 'gh-token'
       name: git-secret-name
       type: string
+    - default: 'xxx'
+      name: branch_name
+      type: string
+    - default: 'xxx'
+      name: tag
+      type: string
   steps:
     - args:
         - '-c'
@@ -19,8 +25,9 @@ spec:
           pwd
 
           ls -l
-
-          cd 
+          echo "GenerateApplication:" >  GitOps/Argo-Plugin/ApplcaitionFiles/$(params.branch_name).yaml
+          echo "  branch: $(params.branch_name)" >>  GitOps/Argo-Plugin/ApplcaitionFiles/$(params.branch_name).yaml
+          echo "  tag: $(params.tag)" >> GitOps/Argo-Plugin/ApplcaitionFiles/$(params.branch_name).yaml
 
       command:
         - /bin/bash
