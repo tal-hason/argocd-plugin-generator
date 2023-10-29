@@ -35,7 +35,7 @@ spec:
 
           export BRANCH=$(params.branch_name)
 
-          export BRACNH=$(echo ${BRANCH} | awk '{print tolower($0)})
+          export BRANCH=$(echo ${BRANCH} | awk '{print tolower($0)}')
 
           export REPO=$(params.repository_name)
 
