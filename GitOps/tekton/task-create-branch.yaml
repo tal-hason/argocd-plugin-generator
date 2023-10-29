@@ -16,6 +16,13 @@ spec:
     - default: 'xxx'
       name: tag
       type: string
+    - default: 'xxx'
+      name: repository_name
+      type: string
+    - default: 'xxx'
+      name: project_name
+      type: string
+
   steps:
     - args:
         - '-c'
@@ -30,13 +37,25 @@ spec:
 
           export BRACNH=$(echo ${BRANCH} | awk '{print tolower($0)})
 
-          echo "GenerateApplication:" >  GitOps/Argo-Plugin/ApplcaitionFiles/$(params.branch_name).yaml
+          export REPO=$(params.repository_name)
 
-          echo "  branch: ${BRANCH}" >>  GitOps/Argo-Plugin/ApplcaitionFiles/$(params.branch_name).yaml
+          export REPO=$(echo ${REPO} | awk '{print tolower($0)})
 
-          echo "  tag: $(params.tag)" >> GitOps/Argo-Plugin/ApplcaitionFiles/$(params.branch_name).yaml
+          export PROJECT=$(params.project_name)
 
-          cat GitOps/Argo-Plugin/ApplcaitionFiles/$(params.branch_name).yaml
+          export PROJECT=$(echo ${PROJECT} | awk '{print tolower($0)})          
+
+          echo "GenerateApplication:" >  GitOps/Argo-Plugin/ApplcaitionFiles/${REPO}-${BRACNH}.yaml
+
+          echo "  branch: ${BRANCH}" >>  GitOps/Argo-Plugin/ApplcaitionFiles/${REPO}-${BRACNH}.yaml
+
+          echo "  tag: $(params.tag)" >> GitOps/Argo-Plugin/ApplcaitionFiles/${REPO}-${BRACNH}.yaml
+
+          echo "  repoName: ${REPO}" >> GitOps/Argo-Plugin/ApplcaitionFiles/${REPO}-${BRACNH}.yaml
+
+          echo "  projectName: ${PROJECT}" >> GitOps/Argo-Plugin/ApplcaitionFiles/${REPO}-${BRACNH}.yaml
+
+          cat GitOps/Argo-Plugin/ApplcaitionFiles/$BRACNH.yaml
 
       command:
         - /bin/bash

@@ -35,6 +35,12 @@ spec:
             value: $(tt.params.from_branch)
           - name: NEW_TAG
             value: $(tt.params.truncated_sha)
+          - name: PR_STATE
+            value: $(tt.params.pr_state)
+          - name: PROJECT
+            value: $(tt.params.repo_org_name)
+          - name: REPO_NAME
+            value: $(tt.params.repo_name)
         pipelineRef:
           name: pull-request
         serviceAccountName: pipeline
