@@ -1,0 +1,18 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: tekton-application
+  namespace: openshift-gitops
+spec:
+  destination:
+    namespace: pullrequest
+    server: 'https://kubernetes.default.svc'
+  project: pull-request-plugin
+  source:
+    path: GitOps/Argo-Plugin
+    repoURL: 'https://github.com/tal-hason/argocd-plugin-generator.git'
+    targetRevision: pull-request
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
