@@ -22,6 +22,9 @@ spec:
     - default: 'xxx'
       name: project_name
       type: string
+    - default: 'xxx'
+      name: gitops-branch
+      type: string
 
   steps:
     - args:
@@ -32,6 +35,8 @@ spec:
           pwd
 
           ls -l
+
+          git switch $(params.gitops-branch)
 
           export BRANCH=$(params.branch_name)
 
@@ -49,7 +54,7 @@ spec:
 
           echo "  branch: ${BRANCH}" >>  GitOps/Argo-Plugin/ApplcaitionFiles/$REPO-$BRANCH.yaml
 
-          echo "  tag: $(params.tag)" >> GitOps/Argo-Plugin/ApplcaitionFiles/$REPO}-$BRANCH.yaml
+          echo "  tag: $(params.tag)" >> GitOps/Argo-Plugin/ApplcaitionFiles/$REPO-$BRANCH.yaml
 
           echo "  repoName: ${REPO}" >> GitOps/Argo-Plugin/ApplcaitionFiles/$REPO-$BRANCH.yaml
 
@@ -64,8 +69,6 @@ spec:
           git config --global user.name "$(params.project_name)"
 
           git config --global --add safe.directory /workspace/output
-
-          printenv
 
           git add -A
 
