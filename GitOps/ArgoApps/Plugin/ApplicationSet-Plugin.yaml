@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: plugin-applicationset
+  name: plugin-pull-request-applicationset
   namespace: openshift-gitops
 spec:
   generators:

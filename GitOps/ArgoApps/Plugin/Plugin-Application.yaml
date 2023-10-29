@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: argocd-plugin
+  name: argocd-plugin-pull-request
   namespace: openshift-gitops
 spec:
   destination:
