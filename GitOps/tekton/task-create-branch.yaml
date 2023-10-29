@@ -39,11 +39,11 @@ spec:
 
           export REPO=$(params.repository_name)
 
-          export REPO=$(echo ${REPO} | awk '{print tolower($0)})
+          export REPO=$(echo ${REPO} | awk '{print tolower($0)}')
 
           export PROJECT=$(params.project_name)
 
-          export PROJECT=$(echo ${PROJECT} | awk '{print tolower($0)})          
+          export PROJECT=$(echo ${PROJECT} | awk '{print tolower($0)}')          
 
           echo "GenerateApplication:" >  GitOps/Argo-Plugin/ApplcaitionFiles/${REPO}-${BRACNH}.yaml
 
