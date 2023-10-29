@@ -7,6 +7,9 @@ spec:
     - default: '1234'
       name: service-name
       type: string
+    - default: 'gh-token'
+      name: git-secret-name
+      type: string
   steps:
     - args:
         - '-c'
