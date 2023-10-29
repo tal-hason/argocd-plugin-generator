@@ -9,7 +9,7 @@ spec:
     server: 'https://kubernetes.default.svc'
   project: pull-request-plugin
   source:
-    path: GitOps/Argo-Plugin
+    path: GitOps/tekton
     repoURL: 'https://github.com/tal-hason/argocd-plugin-generator.git'
     targetRevision: pull-request
   syncPolicy:
