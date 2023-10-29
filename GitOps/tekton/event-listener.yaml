@@ -1,0 +1,24 @@
+apiVersion: triggers.tekton.dev/v1alpha1
+kind: EventListener
+metadata:
+  name: gitea-eventlistener
+spec:
+  namespaceSelector: {}
+  resources: {}
+  serviceAccountName: pipeline
+  triggers:
+    - bindings:
+        - kind: TriggerBinding
+          ref: pull-reqeust-binding
+      interceptors:
+        - params:
+            - name: overlays
+              value:
+                - expression: body.pull_request.head.sha.truncate(7)
+                  key: truncated_sha
+          ref:
+            kind: ClusterInterceptor
+            name: cel
+      name: pull-request
+      template:
+        ref: pull-request-template
