@@ -1,7 +1,7 @@
 ﻿apiVersion: tekton.dev/v1beta1
 kind: Task
 metadata:
-  name: create-app-from-branch
+  name: delete-app-from-branch
 spec:
   params:
     - default: '1234'
@@ -47,9 +47,10 @@ spec:
 
           git switch $(params.gitops-branch)
 
-          # Run commands for opened pull request
 
-          echo "PR is open. Running script for open PR."
+          # Run commands for closed pull request
+
+          echo "PR is closed. Running script for closed PR."
 
           pwd
 
@@ -67,25 +68,13 @@ spec:
 
           export PROJECT=$(echo ${PROJECT} | awk '{print tolower($0)}')
 
-          touch GitOps/Argo-Plugin/ApplcaitionFiles/$REPO-$BRANCH.yaml
+          rm -f GitOps/Argo-Plugin/ApplicationFiles/$REPO-$BRANCH.yaml
 
-          echo "GenerateApplication:" >  GitOps/Argo-Plugin/ApplicationFiles/$REPO-$BRANCH.yaml
-
-          echo "  branch: ${BRANCH}" >>  GitOps/Argo-Plugin/ApplicationFiles/$REPO-$BRANCH.yaml
-
-          echo "  tag: $(params.tag)" >> GitOps/Argo-Plugin/ApplicationFiles/$REPO-$BRANCH.yaml
-
-          echo "  repoName: ${REPO}" >> GitOps/Argo-Plugin/ApplicationFiles/$REPO-$BRANCH.yaml
-
-          echo "  projectName: ${PROJECT}" >> GitOps/Argo-Plugin/ApplicationFiles/$REPO-$BRANCH.yaml
-
-          cat GitOps/Argo-Plugin/ApplicationFiles/$REPO-$BRANCH.yaml
-
-          echo "Updating the Plugin Repo"
+          echo "Delete PR Branch from the Plugin Repo"
 
           git add -A
 
-          git commit -m "Adding branch $BRANCH PR for Deployment"
+          git commit -m "Removeing branch $BRANCH PR for Deployment"
 
           git push
 
