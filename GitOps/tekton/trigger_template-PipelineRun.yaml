@@ -41,6 +41,8 @@ spec:
             value: $(tt.params.repo_org_name)
           - name: REPO_NAME
             value: $(tt.params.repo_name)
+          - name: TOKEN
+            value: gh-token
         pipelineRef:
           name: pull-request
         serviceAccountName: pipeline
