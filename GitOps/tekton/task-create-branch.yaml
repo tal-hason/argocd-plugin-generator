@@ -47,7 +47,7 @@ spec:
 
           git switch $(params.gitops-branch)
 
-          git pull --rebase
+          git pull
 
           # Run commands for opened pull request
 
