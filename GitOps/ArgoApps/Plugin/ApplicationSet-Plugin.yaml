@@ -17,7 +17,7 @@ spec:
       source:
         helm:
           valueFiles:
-            - '{{projectName}}-demo/develop/values-{{repoName}}.yaml'
+            - '{{projectName}}-demo/values-{{repoName}}.yaml'
           parameters:
             - name: "image.tag"
               value: '{{tag}}'
