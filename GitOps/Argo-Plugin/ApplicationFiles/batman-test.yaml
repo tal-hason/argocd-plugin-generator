@@ -1,0 +1,6 @@
+GenerateApplication:
+  branch: test
+  tag: 5547fb0
+  repoName: batman
+  projectName: gotham
+  dateTime: 2023-10-31_19:30:16
