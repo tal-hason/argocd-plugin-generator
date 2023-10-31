@@ -61,4 +61,7 @@ spec:
                     storage: 150Mi
                 storageClassName: crc-csi-hostpath-provisioner
                 volumeMode: Filesystem
-              status: {} 
+              status: {}
+          - name: git-config
+            secret:
+              secretName: gh-creds
