@@ -99,8 +99,6 @@ spec:
       workspaces:
         - name: output
           workspace: workspace
-        - name: git-config
-          workspace: git-creds
     - name: delete-app-from-branch
       params:
         - name: service-name
@@ -132,8 +130,6 @@ spec:
       workspaces:
         - name: output
           workspace: workspace
-        - name: git-config
-          workspace: git-creds
     - name: git-cli
       params:
         - name: BASE_IMAGE
