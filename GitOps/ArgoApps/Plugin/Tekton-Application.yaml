@@ -12,7 +12,7 @@ spec:
     path: GitOps/tekton
     repoURL: 'https://github.com/tal-hason/argocd-plugin-generator.git'
     targetRevision: pull-request
-  # syncPolicy:
-  #   automated: 
-  #     prune: true
-  #     selfHeal: true
+  syncPolicy:
+    automated: 
+      prune: true
+      selfHeal: true
