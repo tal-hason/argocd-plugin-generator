@@ -42,6 +42,8 @@ spec:
 
           git config --global --add safe.directory /workspace/output
 
+          echo 'https://$GIT_USER:$GIT_TOKEN@github.com' > .git-credentials
+
           git switch $(params.gitops-branch)
 
           export BRANCH=$(params.branch_name)
