@@ -47,6 +47,8 @@ spec:
 
           git switch $(params.gitops-branch)
 
+          git pull --rebase
+
           # Run commands for opened pull request
 
           echo "PR is open. Running script for open PR."
