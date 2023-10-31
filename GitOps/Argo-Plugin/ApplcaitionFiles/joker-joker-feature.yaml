@@ -1,0 +1,5 @@
+GenerateApplication:
+  branch: joker-feature
+  tag: ceb3789
+  repoName: joker
+  projectName: gotham
