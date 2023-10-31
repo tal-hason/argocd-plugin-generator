@@ -24,7 +24,7 @@ spec:
     - apiVersion: tekton.dev/v1beta1
       kind: PipelineRun
       metadata:
-        generateName: pull-reqeust-run-
+        generateName: pull-reqeust-from-$(tt.params.from_branch)-
       spec:
         params:
           - name: PLUGIN_REPO
