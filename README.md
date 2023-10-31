@@ -73,6 +73,7 @@ Under our GItops Folder, we find 2 Sub Folders:
 
 - Argo-Plugin, Holds our HELM Chart with its values file to deploy our plugin web-application
 - ArgoApps, Holds all our argoCD objects with kustomaized.
+- Tekton, Hold all the tekton parts that have been created for the pull-request.
 
 #### Argo-Plugin Folder
 
@@ -200,6 +201,27 @@ oc apply -k GitOps/ArgoApps
 this will install the Argo Project and the app of apps and then the Plugin application and the applicationSet
 
 ![Argo-UI](staticFiles/Argo-UI.png)
+
+#### Tekton Folder
+
+this folder holds the following files:
+
+- **event-listener.yaml**
+  this file holds the tekton event listener that create the end-point that will be set as a webhook to our source repo webhook config.
+- **gitea-trigger-binding.yaml**
+  this file maps the webhook Payload to tekton parameters that later can be used in the pipeline
+- **pull-request-pipeline.yaml**
+  tekton pipeline config and structure.
+- **task-create-branch.yaml**
+  a tekton task that will create a file in the argo-Plugin from the Pull-Request event payload data.
+- **task-delete-branch.yaml**
+  a tekton task that will delete the relevnt file from the close pull request event.
+- **trigger_template-PipelineRun.yaml**
+  a tekton pipelineRun template that will be triggered from event-listener
+- **trigger_template-taskRun.yaml**
+  a tekton taskRun template to test the payload data.
+
+![Tekton-app](staticFiles/tekton-appliation.png)
 
 ---
 
