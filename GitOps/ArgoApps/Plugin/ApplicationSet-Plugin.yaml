@@ -11,26 +11,24 @@ spec:
         requeueAfterSeconds: 30
   template:
     metadata:
-      name: "{{name}}-{{project}}"
+      name: "{{branch}}-{{project}}"
     spec:
       project: pull-request-plugin
       source:
         helm:
           valueFiles:
-            - '{{project}}/develop/values-{{name}}.yaml'
+            - '{{projectName}}/develop/values-{{repoName}}.yaml'
           parameters:
-            - name: "image.name"
-              value: '{{image}}'
             - name: "image.tag"
               value: '{{tag}}'
             - name: "global.namespace"
-              value: 'plugin-test'
-        repoURL: '{{repoURL}}/{{project}}/{{gitopsRepo}}.git'
-        targetRevision: '{{branch}}'
+              value: '{{projectName}}-{{branch}}'
+        repoURL: '{{repoURL}}/{{projectName}}/{{gitopsRepo}}.git'
+        targetRevision: 'main'
         path: Application
       destination:
         server: https://kubernetes.default.svc
-        namespace: plugin-test
+        namespace: pull-request
       syncPolicy:
         automated:
           prune: true
