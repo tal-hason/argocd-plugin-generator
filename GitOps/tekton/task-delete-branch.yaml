@@ -22,9 +22,9 @@ spec:
         - >
           set -ex
 
-          git switch $(params.gitops-branch)
-
           git config --global --add safe.directory $(workspaces.output.path)
+
+          git switch $(params.gitops-branch)
 
           git pull
 
