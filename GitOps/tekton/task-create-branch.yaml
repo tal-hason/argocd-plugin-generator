@@ -53,10 +53,6 @@ spec:
 
           echo "PR is open. Running script for open PR."
 
-          pwd
-
-          ls -l GitOps/Argo-Plugin/ApplcaitionFiles/
-
           export BRANCH=$(params.branch_name)
 
           export BRANCH=$(echo ${BRANCH} | awk '{print tolower($0)}')
@@ -69,7 +65,7 @@ spec:
 
           export PROJECT=$(echo ${PROJECT} | awk '{print tolower($0)}')
 
-          cd GitOps/Argo-Plugin/ApplicationFiles/
+          cd $(workspaces.output.path)/GitOps/Argo-Plugin/ApplicationFiles/
 
           echo "GenerateApplication:" > $REPO-$BRANCH.yaml
 
