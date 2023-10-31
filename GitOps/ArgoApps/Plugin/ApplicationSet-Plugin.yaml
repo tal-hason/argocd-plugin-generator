@@ -23,7 +23,7 @@ spec:
               value: '{{tag}}'
             - name: "global.namespace"
               value: '{{projectName}}-{{branch}}'
-        repoURL: '{{repoURL}}/{{projectName}}/{{projectName}}-cd.git'
+        repoURL: 'https://github.com/{{projectName}}-demo/{{projectName}}-cd.git'
         targetRevision: 'main'
         path: Application
       destination:
