@@ -38,37 +38,59 @@ spec:
           pwd
           ls -l
           cp ${WORKSPACE_BASIC_AUTH_DIRECTORY_PATH}/.git-credentials ~/.git-credentials
+
           cp ${WORKSPACE_BASIC_AUTH_DIRECTORY_PATH}/.gitconfig ~/.gitconfig
+
           git config --global --add safe.directory $(workspaces.output.path)
+
           git switch $(params.gitops-branch)
 
           export BRANCH=$(params.branch_name)
+
           export BRANCH=$(echo ${BRANCH} | awk '{print tolower($0)}')
 
           export REPO=$(params.repository_name)
+
           export REPO=$(echo ${REPO} | awk '{print tolower($0)}')
 
           export PROJECT=$(params.project_name)
+
           export PROJECT=$(echo ${PROJECT} | awk '{print tolower($0)}')
 
           if [ "$(params.pr-state)" == "opened" ] || [ "$(params.pr-state)" == "reopened" ]; then
+
               # Run commands for opened pull request
-              echo "PR is open. Running script for open PR."       
+
+              echo "PR is open. Running script for open PR."
+
               echo "GenerateApplication:" >  GitOps/Argo-Plugin/ApplicationFiles/$REPO-$BRANCH.yaml
+
               echo "  branch: ${BRANCH}" >>  GitOps/Argo-Plugin/ApplicationFiles/$REPO-$BRANCH.yaml
+
               echo "  tag: $(params.tag)" >> GitOps/Argo-Plugin/ApplicationFiles/$REPO-$BRANCH.yaml
+
               echo "  repoName: ${REPO}" >> GitOps/Argo-Plugin/ApplicationFiles/$REPO-$BRANCH.yaml
+
               echo "  projectName: ${PROJECT}" >> GitOps/Argo-Plugin/ApplicationFiles/$REPO-$BRANCH.yaml
+
               cat GitOps/Argo-Plugin/ApplicationFiles/$REPO-$BRANCH.yaml
+
           elif [ "$(params.pr-state)" == "closed" ]; then
+
               # Run commands for closed pull request
+
               echo "PR is closed. Running script for closed PR."
+
               rm -rf GitOps/Argo-Plugin/ApplicationFiles/$REPO-$BRANCH.yaml
+
           fi
 
           echo "Updating the Plugin Repo"
+
           git add -A
+
           git commit -m "Adding branch $BRANCH PR for Deployment"
+          
           git push
 
       command:
