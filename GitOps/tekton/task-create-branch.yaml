@@ -42,7 +42,7 @@ spec:
 
           git config --global --add safe.directory /workspace/output
 
-          echo 'https://$GIT_USER:$GIT_TOKEN@github.com' > ~/.git-credentials
+          echo 'https://${GIT_USER}:${GIT_TOKEN}@github.com' > ~/.git-credentials
 
           cat ~/.git-credentials
 
