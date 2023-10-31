@@ -39,6 +39,18 @@ spec:
 
           ls -l
 
+          cd GitOps
+
+          ls -l
+
+          cd Argo-Plugin
+
+          ls -l
+
+          cd ApplicationFiles
+
+          ls -l
+
           cp ${WORKSPACE_BASIC_AUTH_DIRECTORY_PATH}/.git-credentials ~/.git-credentials
 
           cp ${WORKSPACE_BASIC_AUTH_DIRECTORY_PATH}/.gitconfig ~/.gitconfig
