@@ -67,11 +67,9 @@ spec:
 
           export PROJECT=$(echo ${PROJECT} | awk '{print tolower($0)}')
 
-          touch GitOps/Argo-Plugin/ApplcaitionFiles/$REPO-$BRANCH.yaml
+          echo "GenerateApplication:" > GitOps/Argo-Plugin/ApplicationFiles/$REPO-$BRANCH.yaml
 
-          echo "GenerateApplication:" >  GitOps/Argo-Plugin/ApplicationFiles/$REPO-$BRANCH.yaml
-
-          echo "  branch: ${BRANCH}" >>  GitOps/Argo-Plugin/ApplicationFiles/$REPO-$BRANCH.yaml
+          echo "  branch: ${BRANCH}" >> GitOps/Argo-Plugin/ApplicationFiles/$REPO-$BRANCH.yaml
 
           echo "  tag: $(params.tag)" >> GitOps/Argo-Plugin/ApplicationFiles/$REPO-$BRANCH.yaml
 
