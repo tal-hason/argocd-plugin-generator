@@ -1,6 +1,0 @@
-GenerateApplication:
-  branch: batman-new-feature
-  tag: fdd636c
-  repoName: batman
-  projectName: gotham
-  dateTime: 2023-10-31_20:17:54
