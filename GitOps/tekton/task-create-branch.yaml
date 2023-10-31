@@ -55,7 +55,7 @@ spec:
 
               pwd
 
-              ls -l
+              ls -l GitOps/Argo-Plugin/ApplcaitionFiles/
 
               export BRANCH=$(params.branch_name)
 
@@ -91,7 +91,7 @@ spec:
 
               pwd
 
-              ls -l
+              ls -l GitOps/Argo-Plugin/ApplcaitionFiles/
 
               export BRANCH=$(params.branch_name)
 
