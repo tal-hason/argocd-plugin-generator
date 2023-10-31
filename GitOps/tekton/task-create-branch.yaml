@@ -36,15 +36,9 @@ spec:
 
           ls -l
 
-          git config --global user.email "tekton@pipeline.com"
-
-          git config --global user.name "$(params.project_name)"
-
-          git config --global --add safe.directory /workspace/output
-
-          echo https://${GIT_USER}:${GIT_TOKEN}@github.com > ~/.git-credentials
-
-          cat ~/.git-credentials
+          cp "${WORKSPACE_BASIC_AUTH_DIRECTORY_PATH}/.git-credentials" "${PARAM_USER_HOME}/.git-credentials"
+          
+          cp "${WORKSPACE_BASIC_AUTH_DIRECTORY_PATH}/.gitconfig" "${PARAM_USER_HOME}/.gitconfig"
 
           git switch $(params.gitops-branch)
 
@@ -93,6 +87,8 @@ spec:
             secretKeyRef:
               key: username
               name: $(params.git-secret-name)
+        - name: WORKSPACE_BASIC_AUTH_DIRECTORY_PATH
+          value: $(workspaces.git-config.path)
       image: 'quay.io/argocicd/update-deploy:pipeline'
       name: update-chart-app-ver
       workingDir: /workspace/output/
@@ -100,3 +96,5 @@ spec:
   workspaces:
     - description: The git repo will be cloned onto the volume backing this Workspace.
       name: output
+    - description: The git repo config files
+      name: git-config
