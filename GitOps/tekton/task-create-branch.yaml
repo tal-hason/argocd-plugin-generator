@@ -36,7 +36,7 @@ spec:
           set -ex
 
           pwd
-          
+
           ls -l
 
           cp ${WORKSPACE_BASIC_AUTH_DIRECTORY_PATH}/.git-credentials ~/.git-credentials
@@ -47,23 +47,24 @@ spec:
 
           git switch $(params.gitops-branch)
 
-          export BRANCH=$(params.branch_name)
-
-          export BRANCH=$(echo ${BRANCH} | awk '{print tolower($0)}')
-
-          export REPO=$(params.repository_name)
-
-          export REPO=$(echo ${REPO} | awk '{print tolower($0)}')
-
-          export PROJECT=$(params.project_name)
-
-          export PROJECT=$(echo ${PROJECT} | awk '{print tolower($0)}')
 
           if [ "$(params.pr-state)" == "opened" ] || [ "$(params.pr-state)" == "reopened" ]; then
 
               # Run commands for opened pull request
 
               echo "PR is open. Running script for open PR."
+
+              export BRANCH=$(params.branch_name)
+
+              export BRANCH=$(echo ${BRANCH} | awk '{print tolower($0)}')
+
+              export REPO=$(params.repository_name)
+
+              export REPO=$(echo ${REPO} | awk '{print tolower($0)}')
+
+              export PROJECT=$(params.project_name)
+
+              export PROJECT=$(echo ${PROJECT} | awk '{print tolower($0)}')
 
               echo "GenerateApplication:" >  GitOps/Argo-Plugin/ApplicationFiles/$REPO-$BRANCH.yaml
 
@@ -82,6 +83,18 @@ spec:
               # Run commands for closed pull request
 
               echo "PR is closed. Running script for closed PR."
+
+              export BRANCH=$(params.branch_name)
+
+              export BRANCH=$(echo ${BRANCH} | awk '{print tolower($0)}')
+
+              export REPO=$(params.repository_name)
+
+              export REPO=$(echo ${REPO} | awk '{print tolower($0)}')
+
+              export PROJECT=$(params.project_name)
+
+              export PROJECT=$(echo ${PROJECT} | awk '{print tolower($0)}')
 
               rm -rf GitOps/Argo-Plugin/ApplicationFiles/$REPO-$BRANCH.yaml
 
