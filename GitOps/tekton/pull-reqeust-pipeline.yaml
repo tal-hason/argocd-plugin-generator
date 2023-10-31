@@ -134,6 +134,36 @@ spec:
           workspace: workspace
         - name: git-config
           workspace: git-creds
+    - name: git-cli
+      params:
+        - name: BASE_IMAGE
+          value: >-
+            cgr.dev/chainguard/git:root-2.39@sha256:7759f87050dd8bacabe61354d75ccd7f864d6b6f8ec42697db7159eccd491139
+        - name: GIT_USER_NAME
+          value: tal-hason
+        - name: GIT_USER_EMAIL
+          value: thason@redhat.com
+        - name: GIT_SCRIPT
+          value: |
+            git config --global --add safe.directory $(workspaces.source.path)
+            git add -A
+            git commit -m "Updated changes to Generator"
+            git push
+        - name: USER_HOME
+          value: /root
+        - name: VERBOSE
+          value: 'true'
+      runAfter:
+        - delete-app-from-branch
+        - create-app-from-branch
+      taskRef:
+        kind: ClusterTask
+        name: git-cli
+      workspaces:
+        - name: source
+          workspace: workspace
+        - name: basic-auth
+          workspace: git-creds
   workspaces:
     - name: workspace
     - name: git-creds
