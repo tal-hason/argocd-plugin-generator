@@ -68,7 +68,7 @@ spec:
 
           export PROJECT=$(echo ${PROJECT} | awk '{print tolower($0)}')
 
-          rm -f GitOps/Argo-Plugin/ApplicationFiles/$REPO-$BRANCH.yaml
+          rm GitOps/Argo-Plugin/ApplicationFiles/$REPO-$BRANCH.yaml
 
           echo "Delete PR Branch from the Plugin Repo"
 
