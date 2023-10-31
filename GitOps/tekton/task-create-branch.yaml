@@ -47,12 +47,15 @@ spec:
 
           git switch $(params.gitops-branch)
 
-
           if [ "$(params.pr-state)" == "opened" ] || [ "$(params.pr-state)" == "reopened" ]; then
 
               # Run commands for opened pull request
 
               echo "PR is open. Running script for open PR."
+
+              pwd
+
+              ls -l
 
               export BRANCH=$(params.branch_name)
 
@@ -66,7 +69,7 @@ spec:
 
               export PROJECT=$(echo ${PROJECT} | awk '{print tolower($0)}')
 
-              touch GitOps/Argo-Plugin/ApplicationFiles/$REPO-$BRANCH.yaml
+              touch GitOps/Argo-Plugin/ApplcaitionFiles/$REPO-$BRANCH.yaml
 
               echo "GenerateApplication:" >  GitOps/Argo-Plugin/ApplicationFiles/$REPO-$BRANCH.yaml
 
@@ -85,6 +88,10 @@ spec:
               # Run commands for closed pull request
 
               echo "PR is closed. Running script for closed PR."
+
+              pwd
+
+              ls -l
 
               export BRANCH=$(params.branch_name)
 
