@@ -1,0 +1,5 @@
+GenerateApplication:
+  branch: test
+  tag: a29dfe9
+  repoName: batman
+  projectName: gotham
