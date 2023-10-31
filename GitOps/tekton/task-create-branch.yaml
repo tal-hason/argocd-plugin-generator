@@ -4,12 +4,6 @@ metadata:
   name: create-app-from-branch
 spec:
   params:
-    - default: '1234'
-      name: service-name
-      type: string
-    - default: 'gh-token'
-      name: git-secret-name
-      type: string
     - default: 'xxx'
       name: branch_name
       type: string
@@ -25,21 +19,11 @@ spec:
     - default: 'xxx'
       name: gitops-branch
       type: string
-    - default: 'xxx'
-      name: pr-state
-      type: string
-
   steps:
     - args:
         - '-c'
         - >
           set -ex
-
-          cp ${WORKSPACE_BASIC_AUTH_DIRECTORY_PATH}/.git-credentials ~/.git-credentials
-
-          cp ${WORKSPACE_BASIC_AUTH_DIRECTORY_PATH}/.gitconfig ~/.gitconfig
-
-          git config --global --add safe.directory $(workspaces.output.path)
 
           git switch $(params.gitops-branch)
 
@@ -79,23 +63,8 @@ spec:
 
           echo "Updating the Plugin Repo"
 
-
-
       command:
         - /bin/bash
-      env:
-        - name: GIT_TOKEN
-          valueFrom:
-            secretKeyRef:
-              key: password
-              name: $(params.git-secret-name)
-        - name: GIT_USER
-          valueFrom:
-            secretKeyRef:
-              key: username
-              name: $(params.git-secret-name)
-        - name: WORKSPACE_BASIC_AUTH_DIRECTORY_PATH
-          value: $(workspaces.git-config.path)
       image: 'quay.io/argocicd/update-deploy:pipeline'
       name: update-chart-app-ver
       workingDir: /workspace/output/
@@ -103,5 +72,4 @@ spec:
   workspaces:
     - description: The git repo will be cloned onto the volume backing this Workspace.
       name: output
-    - description: The git repo config files
-      name: git-config
+
