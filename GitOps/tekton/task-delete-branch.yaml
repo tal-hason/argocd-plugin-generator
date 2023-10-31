@@ -65,7 +65,9 @@ spec:
 
           export PROJECT=$(echo ${PROJECT} | awk '{print tolower($0)}')
 
-          cd $(workspaces.output.path)/GitOps/Argo-Plugin/ApplicationFiles/
+          pwd
+
+          cd $(workspaces.output.path)/GitOps/Argo-Plugin/ApplicationFiles
 
           ls -l
 
