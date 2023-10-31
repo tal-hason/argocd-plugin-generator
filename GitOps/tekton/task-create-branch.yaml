@@ -47,6 +47,8 @@ spec:
 
           export PROJECT=$(echo ${PROJECT} | awk '{print tolower($0)}')
 
+          export DATETIME=$(date +"%Y-%m-%d_%H:%M:%S")
+
           pwd
 
           cd $(workspaces.output.path)/GitOps/Argo-Plugin/ApplicationFiles
@@ -60,6 +62,8 @@ spec:
           echo "  repoName: ${REPO}" >> $REPO-$BRANCH.yaml
 
           echo "  projectName: ${PROJECT}" >> $REPO-$BRANCH.yaml
+
+          echo "  dateTime: ${DATETIME}" >> $REPO-$BRANCH.yaml
 
           cat $REPO-$BRANCH.yaml
 
