@@ -62,3 +62,6 @@ spec:
                 storageClassName: crc-csi-hostpath-provisioner
                 volumeMode: Filesystem
               status: {}
+          - name: git-creds
+            secret:
+              secretName: gh-creds
