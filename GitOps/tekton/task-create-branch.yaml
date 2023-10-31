@@ -51,7 +51,7 @@ spec:
           export PROJECT=$(params.project_name)
           export PROJECT=$(echo ${PROJECT} | awk '{print tolower($0)}')
 
-          if [ "$(params.pr-state)" == "opened" ]; then
+          if [ "$(params.pr-state)" == "opened" ] || [ "$(params.pr-state)" == "reopened" ]; then
               # Run commands for opened pull request
               echo "PR is open. Running script for open PR."       
               echo "GenerateApplication:" >  GitOps/Argo-Plugin/ApplicationFiles/$REPO-$BRANCH.yaml
