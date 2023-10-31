@@ -71,12 +71,6 @@ spec:
 
           echo "Delete PR Branch from the Plugin Repo"
 
-          git add -A
-
-          git commit -m "Removeing branch $BRANCH PR for Deployment"
-
-          git push
-
       command:
         - /bin/bash
       env:

@@ -79,11 +79,7 @@ spec:
 
           echo "Updating the Plugin Repo"
 
-          git add -A
 
-          git commit -m "Adding branch $BRANCH PR for Deployment"
-
-          git push
 
       command:
         - /bin/bash
