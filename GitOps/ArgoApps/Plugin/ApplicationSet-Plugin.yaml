@@ -11,7 +11,7 @@ spec:
         requeueAfterSeconds: 30
   template:
     metadata:
-      name: "{{branch}}-{{project}}"
+      name: "{{branch}}-{{projectName}}"
     spec:
       project: pull-request-plugin
       source:
