@@ -53,10 +53,6 @@ spec:
 
           echo "PR is closed. Running script for closed PR."
 
-          pwd
-
-          ls -l GitOps/Argo-Plugin/ApplcaitionFiles/
-
           export BRANCH=$(params.branch_name)
 
           export BRANCH=$(echo ${BRANCH} | awk '{print tolower($0)}')
@@ -69,7 +65,11 @@ spec:
 
           export PROJECT=$(echo ${PROJECT} | awk '{print tolower($0)}')
 
-          rm GitOps/Argo-Plugin/ApplicationFiles/$REPO-$BRANCH.yaml
+          cd GitOps/Argo-Plugin/ApplicationFiles/
+
+          ls -l
+
+          rm $REPO-$BRANCH.yaml
 
           echo "Delete PR Branch from the Plugin Repo"
 

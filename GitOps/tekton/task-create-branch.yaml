@@ -69,17 +69,19 @@ spec:
 
           export PROJECT=$(echo ${PROJECT} | awk '{print tolower($0)}')
 
-          echo "GenerateApplication:" > GitOps/Argo-Plugin/ApplicationFiles/$REPO-$BRANCH.yaml
+          cd GitOps/Argo-Plugin/ApplicationFiles/
 
-          echo "  branch: ${BRANCH}" >> GitOps/Argo-Plugin/ApplicationFiles/$REPO-$BRANCH.yaml
+          echo "GenerateApplication:" > $REPO-$BRANCH.yaml
 
-          echo "  tag: $(params.tag)" >> GitOps/Argo-Plugin/ApplicationFiles/$REPO-$BRANCH.yaml
+          echo "  branch: ${BRANCH}" >> $REPO-$BRANCH.yaml
 
-          echo "  repoName: ${REPO}" >> GitOps/Argo-Plugin/ApplicationFiles/$REPO-$BRANCH.yaml
+          echo "  tag: $(params.tag)" >> $REPO-$BRANCH.yaml
 
-          echo "  projectName: ${PROJECT}" >> GitOps/Argo-Plugin/ApplicationFiles/$REPO-$BRANCH.yaml
+          echo "  repoName: ${REPO}" >> $REPO-$BRANCH.yaml
 
-          cat GitOps/Argo-Plugin/ApplicationFiles/$REPO-$BRANCH.yaml
+          echo "  projectName: ${PROJECT}" >> $REPO-$BRANCH.yaml
+
+          cat $REPO-$BRANCH.yaml
 
           echo "Updating the Plugin Repo"
 
