@@ -1,0 +1,139 @@
+apiVersion: tekton.dev/v1beta1
+kind: Pipeline
+metadata:
+  name: pull-request
+spec:
+  params:
+    - default: 'https://github.com/tal-hason/argocd-plugin-generator.git'
+      name: PLUGIN_REPO
+      type: string
+    - default: pull-request
+      name: PLUGIN_BRANCH
+      type: string
+    - default: gh-token
+      name: TOKEN
+      type: string
+    - name: FROM_BRANCH
+      type: string
+    - name: NEW_TAG
+      type: string
+    - default: open
+      name: PR_STATE
+      type: string
+    - name: PROJECT
+      type: string
+    - name: REPO_NAME
+      type: string
+  tasks:
+    - name: get-plugin-repo
+      params:
+        - name: url
+          value: $(params.PLUGIN_REPO)
+        - name: revision
+          value: $(params.PLUGIN_BRANCH)
+        - name: refspec
+          value: ''
+        - name: submodules
+          value: 'true'
+        - name: depth
+          value: '1'
+        - name: sslVerify
+          value: 'true'
+        - name: crtFileName
+          value: ca-bundle.crt
+        - name: subdirectory
+          value: ''
+        - name: sparseCheckoutDirectories
+          value: ''
+        - name: deleteExisting
+          value: 'true'
+        - name: httpProxy
+          value: ''
+        - name: httpsProxy
+          value: ''
+        - name: noProxy
+          value: ''
+        - name: verbose
+          value: 'true'
+        - name: gitInitImage
+          value: >-
+            registry.redhat.io/openshift-pipelines/pipelines-git-init-rhel8@sha256:9b14f52b21d29d8d83ea4c0e78623debc954f1a732d2be6d1a7269fbba23b1a4
+        - name: userHome
+          value: /home/git
+      taskRef:
+        kind: ClusterTask
+        name: git-clone
+      workspaces:
+        - name: output
+          workspace: workspace
+    - name: create-app-from-branch
+      params:
+        - name: service-name
+          value: '1234'
+        - name: git-secret-name
+          value: $(params.TOKEN)
+        - name: branch_name
+          value: $(params.FROM_BRANCH)
+        - name: tag
+          value: $(params.NEW_TAG)
+        - name: repository_name
+          value: $(params.REPO_NAME)
+        - name: project_name
+          value: $(params.PROJECT)
+        - name: gitops-branch
+          value: $(params.PLUGIN_BRANCH)
+        - name: pr-state
+          value: $(params.PR_STATE)
+      runAfter:
+        - get-plugin-repo
+      taskRef:
+        kind: Task
+        name: create-app-from-branch
+      when:
+        - input: $(params.PR_STATE)
+          operator: in
+          values:
+            - opened
+            - reopened
+            - synchronized
+      workspaces:
+        - name: output
+          workspace: workspace
+        - name: git-config
+          workspace: git-creds
+    - name: delete-app-from-branch
+      params:
+        - name: service-name
+          value: '1234'
+        - name: git-secret-name
+          value: $(params.TOKEN)
+        - name: branch_name
+          value: $(params.FROM_BRANCH)
+        - name: tag
+          value: $(params.NEW_TAG)
+        - name: repository_name
+          value: $(params.REPO_NAME)
+        - name: project_name
+          value: $(params.PROJECT)
+        - name: gitops-branch
+          value: $(params.PLUGIN_BRANCH)
+        - name: pr-state
+          value: $(params.PR_STATE)
+      runAfter:
+        - get-plugin-repo
+      taskRef:
+        kind: Task
+        name: delete-app-from-branch
+      when:
+        - input: $(params.PR_STATE)
+          operator: in
+          values:
+            - closed
+      workspaces:
+        - name: output
+          workspace: workspace
+        - name: git-config
+          workspace: git-creds
+  workspaces:
+    - name: workspace
+    - name: git-creds
