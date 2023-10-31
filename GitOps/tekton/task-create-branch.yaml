@@ -36,7 +36,9 @@ spec:
           set -ex
 
           pwd
+          
           ls -l
+
           cp ${WORKSPACE_BASIC_AUTH_DIRECTORY_PATH}/.git-credentials ~/.git-credentials
 
           cp ${WORKSPACE_BASIC_AUTH_DIRECTORY_PATH}/.gitconfig ~/.gitconfig
@@ -90,7 +92,7 @@ spec:
           git add -A
 
           git commit -m "Adding branch $BRANCH PR for Deployment"
-          
+
           git push
 
       command:
